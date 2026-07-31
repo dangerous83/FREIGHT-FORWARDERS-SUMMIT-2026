@@ -1,0 +1,76 @@
+/* Print / PDF export: one 16:9 slide per page, no interface chrome. */
+@media print {
+  @page {
+    size: 1920px 1080px landscape;
+    margin: 0;
+  }
+
+  html,
+  body,
+  #root {
+    height: auto !important;
+    overflow: visible !important;
+    background: #fff !important;
+  }
+
+  body {
+    overflow: visible !important;
+  }
+
+  .app-root {
+    position: static !important;
+    display: block !important;
+    background: #fff !important;
+  }
+
+  /* Hide all interface controls */
+  .no-print,
+  .presentation-chrome,
+  .slide-nav,
+  .slide-progress,
+  .fullscreen-control,
+  .keyboard-help,
+  .overview-toggle,
+  .audio-control,
+  .autoplay-control,
+  .nav-zone,
+  .presentation-intro,
+  .skip-intro {
+    display: none !important;
+  }
+
+  .stage-wrap {
+    position: static !important;
+    width: 1920px !important;
+    height: 1080px !important;
+    max-width: none !important;
+    max-height: none !important;
+  }
+
+  .stage {
+    position: static !important;
+    box-shadow: none !important;
+    container-type: normal !important;
+  }
+
+  .print-only-stack {
+    display: block !important;
+  }
+
+  /* Force every slide onto its own printed page */
+  .print-slide {
+    position: relative !important;
+    display: flex !important;
+    width: 1920px !important;
+    height: 1080px !important;
+    page-break-after: always;
+    break-after: page;
+    overflow: hidden !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .print-slide:last-child {
+    page-break-after: auto;
+  }
+}

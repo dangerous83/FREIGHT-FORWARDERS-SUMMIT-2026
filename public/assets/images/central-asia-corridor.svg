@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="600" viewBox="0 0 900 600" role="img">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0e3057"/>
+      <stop offset="0.55" stop-color="#0B2748"/>
+      <stop offset="1" stop-color="#071B33"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="34%" r="60%">
+      <stop offset="0" stop-color="#255AAD" stop-opacity="0.5"/>
+      <stop offset="1" stop-color="#255AAD" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#E8B72E"/>
+      <stop offset="1" stop-color="#E96332"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="600" fill="url(#sky)"/>
+  <rect width="900" height="600" fill="url(#glow)"/>
+  <g stroke="#3A7BD5" stroke-width="0.6" opacity="0.12"><line x1="0" y1="0" x2="0" y2="600"/><line x1="64" y1="0" x2="64" y2="600"/><line x1="128" y1="0" x2="128" y2="600"/><line x1="192" y1="0" x2="192" y2="600"/><line x1="256" y1="0" x2="256" y2="600"/><line x1="320" y1="0" x2="320" y2="600"/><line x1="384" y1="0" x2="384" y2="600"/><line x1="448" y1="0" x2="448" y2="600"/><line x1="512" y1="0" x2="512" y2="600"/><line x1="576" y1="0" x2="576" y2="600"/><line x1="640" y1="0" x2="640" y2="600"/><line x1="704" y1="0" x2="704" y2="600"/><line x1="768" y1="0" x2="768" y2="600"/><line x1="832" y1="0" x2="832" y2="600"/><line x1="896" y1="0" x2="896" y2="600"/><line x1="0" y1="0" x2="900" y2="0"/><line x1="0" y1="64" x2="900" y2="64"/><line x1="0" y1="128" x2="900" y2="128"/><line x1="0" y1="192" x2="900" y2="192"/><line x1="0" y1="256" x2="900" y2="256"/><line x1="0" y1="320" x2="900" y2="320"/><line x1="0" y1="384" x2="900" y2="384"/><line x1="0" y1="448" x2="900" y2="448"/><line x1="0" y1="512" x2="900" y2="512"/><line x1="0" y1="576" x2="900" y2="576"/></g>
+  <path d="M0,600 L162,330 L288,432 L468,240 L630,408.00000000000006 L774,300 L900,396 L900,600 Z" fill="#0c2545" opacity="0.55"/>
+     <path d="M0,540 C270,491.99999999999994 540,552 900,480" fill="none" stroke="#12294a" stroke-width="30"/>
+     <path d="M0,540 C270,491.99999999999994 540,552 900,480" fill="none" stroke="#E8B72E" stroke-width="2" stroke-dasharray="14 14" opacity="0.7"/>
+     <g>
+    <rect x="360" y="470.2" width="153" height="57.8" rx="3" fill="#3A7BD5"/>
+    <rect x="513" y="487.2" width="51" height="40.8" rx="3" fill="#E96332"/>
+    <circle cx="400.8" cy="528" r="13.6" fill="#0a1a2e" stroke="#3A7BD5" stroke-width="3.4"/>
+    <circle cx="472.2" cy="528" r="13.6" fill="#0a1a2e" stroke="#3A7BD5" stroke-width="3.4"/>
+    <circle cx="536.8" cy="528" r="13.6" fill="#0a1a2e" stroke="#E96332" stroke-width="3.4"/>
+  </g>
+  <text x="882" y="584" text-anchor="end" font-family="Inter, sans-serif" font-size="13" fill="#ffffff" opacity="0.32" letter-spacing="2">PLACEHOLDER · REPLACE WITH HIGGSFIELD 1K</text>
+</svg>

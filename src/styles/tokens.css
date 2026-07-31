@@ -1,0 +1,68 @@
+:root {
+  /* ---- Brand palette ---- */
+  --ils-cobalt: #255aad;
+  --ils-cobalt-bright: #3a7bd5;
+  --navy-deep: #071b33;
+  --navy-mid: #0b2748;
+  --gold: #e8b72e;
+  --orange: #e96332;
+  --off-white: #f6f8fb;
+  --grey-soft: #dde4ec;
+
+  /* ---- Semantic surfaces ---- */
+  --bg: var(--navy-deep);
+  --bg-elevated: var(--navy-mid);
+  --bg-panel: rgba(11, 39, 72, 0.72);
+  --border-subtle: rgba(221, 228, 236, 0.14);
+  --border-strong: rgba(221, 228, 236, 0.28);
+
+  /* ---- Text ---- */
+  --text-primary: var(--off-white);
+  --text-secondary: rgba(221, 228, 236, 0.72);
+  --text-muted: rgba(221, 228, 236, 0.48);
+  --text-on-light: var(--navy-deep);
+
+  /* ---- Type ---- */
+  --font-display: 'Sora', 'Segoe UI', system-ui, sans-serif;
+  --font-body: 'Inter', 'Segoe UI', system-ui, sans-serif;
+
+  /* Fluid type scale (relative to 16:9 stage) */
+  --fs-display: clamp(2.6rem, 7.2cqw, 8.2rem);
+  --fs-h1: clamp(2rem, 5cqw, 5.4rem);
+  --fs-h2: clamp(1.5rem, 3.4cqw, 3.4rem);
+  --fs-h3: clamp(1.1rem, 2cqw, 2rem);
+  --fs-lead: clamp(1rem, 1.7cqw, 1.75rem);
+  --fs-body: clamp(0.85rem, 1.25cqw, 1.2rem);
+  --fs-small: clamp(0.7rem, 1cqw, 0.95rem);
+  --fs-kicker: clamp(0.62rem, 0.95cqw, 0.9rem);
+  --fs-mega-number: clamp(6rem, 20cqw, 22rem);
+
+  /* ---- Spacing ---- */
+  --stage-pad-x: clamp(1.5rem, 5cqw, 6rem);
+  --stage-pad-y: clamp(1.25rem, 4cqw, 4rem);
+  --gap-xs: 0.5rem;
+  --gap-sm: 0.85rem;
+  --gap-md: 1.5rem;
+  --gap-lg: 2.5rem;
+
+  /* ---- Radius & shadow ---- */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+  --shadow-panel: 0 30px 80px -30px rgba(0, 0, 0, 0.65);
+  --shadow-card: 0 18px 46px -22px rgba(0, 0, 0, 0.7);
+
+  /* ---- Motion ---- */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 0.3s;
+  --dur-mid: 0.6s;
+  --dur-slow: 0.9s;
+
+  /* ---- Layout ---- */
+  --stage-ratio: 16 / 9;
+  --z-stage: 1;
+  --z-chrome: 40;
+  --z-overlay: 60;
+  --z-intro: 80;
+}
