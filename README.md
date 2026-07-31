@@ -125,8 +125,19 @@ from a user gesture inside `IntroAudioControl` / `PresentationIntro`.
 
 ## Deploying (static host)
 
-Any static host works — the build is fully self-contained (assets inlined, no
-external runtime calls; fonts load from Google Fonts).
+> **The #1 cause of a blank page: serving the repository root instead of the
+> built `dist/` folder.** The root `index.html` is a dev entry that points at
+> `/src/main.tsx` (TypeScript) and will render blank on a static host. You must
+> run `npm run build` and serve **`dist/`**. Config files for the common hosts
+> are included (`vercel.json`, `netlify.toml`, `.github/workflows/deploy.yml`),
+> and `vite.config.ts` uses `base: './'` so it also works from any sub-path.
+
+Any static host works — the build is fully self-contained (assets are local, no
+external runtime calls; fonts load from Google Fonts with system fallbacks).
+
+**GitHub Pages (zero-config workflow included)**
+- Push to the default branch, then in the repo: **Settings → Pages → Source:
+  GitHub Actions**. The included workflow builds and publishes `dist/`.
 
 **Vercel**
 - Framework preset: **Vite** · Build: `npm run build` · Output: `dist`

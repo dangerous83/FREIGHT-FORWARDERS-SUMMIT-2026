@@ -1,6 +1,7 @@
 import { forwardRef } from 'react';
 import { motion } from 'framer-motion';
 import { introConfig } from '@/data/intro';
+import { asset } from '@/utils/asset';
 
 interface Props {
   onActivate: () => void;
@@ -75,7 +76,7 @@ export const ActivationButton = forwardRef<HTMLButtonElement, Props>(function Ac
       </div>
 
       <div className={`activation__logo-wrap ${reduced ? '' : 'activation__breathe'}`}>
-        <img className="activation__logo" src={introConfig.logoSrc} alt="" aria-hidden="true" />
+        <img className="activation__logo" src={asset(introConfig.logoSrc)} alt="" aria-hidden="true" />
       </div>
 
       {hovered && (

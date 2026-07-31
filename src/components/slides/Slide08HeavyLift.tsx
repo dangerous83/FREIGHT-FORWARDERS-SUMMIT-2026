@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { Check, ChevronRight } from 'lucide-react';
 import { heavyLiftContent } from '@/data/slides';
 import { ImageReveal } from '@/components/common/ImageReveal';
+import { asset } from '@/utils/asset';
 
 export function Slide08HeavyLift() {
   const [active, setActive] = useState(0);
@@ -11,7 +12,7 @@ export function Slide08HeavyLift() {
   return (
     <section className="slide slide--heavy" aria-label="Heavy-lift capability">
       <div className="slide-bg" aria-hidden="true">
-        <img className="slide-bg__img slide-bg__img--dim" src="/assets/images/heavy-lift.svg" alt="" />
+        <img className="slide-bg__img slide-bg__img--dim" src={asset('/assets/images/heavy-lift.svg')} alt="" />
         <div className="slide-bg__scrim slide-bg__scrim--left" />
       </div>
 

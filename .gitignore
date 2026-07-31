@@ -8,3 +8,6 @@ test-results
 .vite
 *.log
 npm-debug.log*
+
+# TS build cache
+*.tsbuildinfo

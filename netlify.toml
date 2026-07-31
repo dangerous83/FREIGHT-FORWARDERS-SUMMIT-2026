@@ -1,0 +1,15 @@
+# Netlify deployment config.
+# Connect the repo in Netlify (or drag-and-drop the built `dist/` folder).
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# Hash-based routing means no SPA rewrite is strictly required, but this keeps
+# any direct path request resolving to the app shell.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

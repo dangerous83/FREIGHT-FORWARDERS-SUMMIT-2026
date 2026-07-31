@@ -8,6 +8,7 @@ import { SlideNavigation, NavZones } from './SlideNavigation';
 import { FullscreenControl } from './FullscreenControl';
 import { KeyboardHelp } from './KeyboardHelp';
 import { SlideOverview } from './SlideOverview';
+import { asset } from '@/utils/asset';
 import '@/styles/shell.css';
 import '@/styles/slides.css';
 
@@ -81,7 +82,7 @@ export function PresentationShell() {
 
             <div className="chrome-top no-print">
               <div className="chrome-brand">
-                <img src="/logo/ils-logo-white.png" alt="ILS — International Logistic Services" />
+                <img src={asset('/logo/ils-logo-white.png')} alt="ILS — International Logistic Services" />
               </div>
               <div className="chrome-tools">
                 <button
