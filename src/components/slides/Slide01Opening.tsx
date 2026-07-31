@@ -4,6 +4,7 @@ import { openingContent } from '@/data/slides';
 import { usePresentation } from '@/context/PresentationContext';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { AnimatedHeadline } from '@/components/common/AnimatedHeadline';
+import { asset } from '@/utils/asset';
 
 export function Slide01Opening() {
   const { next } = usePresentation();
@@ -13,12 +14,12 @@ export function Slide01Opening() {
     <section className="slide slide--opening" aria-label="Opening: We don't do easy">
       {/* Cinematic hero backdrop */}
       <div className="slide-bg" aria-hidden="true">
-        <img className="slide-bg__img" src="/assets/images/hero-convoy.svg" alt="" />
+        <img className="slide-bg__img" src={asset('/assets/images/hero-convoy.svg')} alt="" />
         <div className="slide-bg__scrim slide-bg__scrim--opening" />
         {/* Subtle animated global route lines */}
         <svg className="slide-bg__routes" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
           <g fill="none" stroke="#3a7bd5" strokeWidth="1.4" opacity="0.5">
-            {['M-40,620 C400,470 900,520 1300,360 1680,240', 'M-40,760 C500,700 950,660 1660,470'].map(
+            {['M-40,620 C 400,470 900,520 1300,360 S 1620,300 1680,240', 'M-40,760 C 500,700 950,660 1660,470'].map(
               (d, i) => (
                 <path
                   key={i}
@@ -69,7 +70,7 @@ export function Slide01Opening() {
       </div>
 
       <div className="opening-logo-mark" aria-hidden="true">
-        <img src="/logo/ils-logo-white.png" alt="" />
+        <img src={asset('/logo/ils-logo-white.png')} alt="" />
       </div>
     </section>
   );

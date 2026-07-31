@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
+import { asset } from '@/utils/asset';
 
 interface Props {
   src: string;
@@ -20,7 +21,7 @@ export function ImageReveal({ src, alt, className, delay = 0, eager = false, rou
       style={{ position: 'relative', overflow: 'hidden' }}
     >
       <motion.img
-        src={src}
+        src={asset(src)}
         alt={alt}
         loading={eager ? 'eager' : 'lazy'}
         decoding="async"

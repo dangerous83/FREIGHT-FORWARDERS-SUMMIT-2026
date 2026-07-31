@@ -7,6 +7,7 @@ import { usePresentation } from '@/context/PresentationContext';
 import { AnimatedHeadline } from '@/components/common/AnimatedHeadline';
 import { ContactPanel } from '@/components/common/ContactPanel';
 import { Modal } from '@/components/common/Modal';
+import { asset } from '@/utils/asset';
 
 export function Slide11Contact() {
   const { returnToStart } = usePresentation();
@@ -47,7 +48,7 @@ export function Slide11Contact() {
       </div>
 
       <footer className="contact-footer" aria-hidden="true">
-        <img src="/logo/ils-logo-white.png" alt="" />
+        <img src={asset('/logo/ils-logo-white.png')} alt="" />
         <span>{companyMeta.legalName} · {companyMeta.tagline}</span>
       </footer>
 

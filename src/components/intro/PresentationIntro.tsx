@@ -7,6 +7,7 @@ import { ActivationButton } from './ActivationButton';
 import { LoadingRing } from './LoadingRing';
 import { IntroAudioControl } from './IntroAudioControl';
 import { SkipIntroButton } from './SkipIntroButton';
+import { asset } from '@/utils/asset';
 import '@/styles/intro.css';
 
 // Assets to warm up during the intro so Slide 01 appears instantly.
@@ -14,7 +15,7 @@ const PRELOAD = [
   '/assets/images/hero-convoy.svg',
   '/logo/ils-logo-white.png',
   '/assets/images/dubai-operations.svg',
-];
+].map(asset);
 
 export function PresentationIntro() {
   const { enterPresentation, reducedMotion } = usePresentation();
@@ -202,7 +203,7 @@ export function PresentationIntro() {
               animate={{ opacity: [0, 1, 1, 0], scale: [1.1, 1, 1, 0.94] }}
               transition={{ duration: introConfig.animationDuration / 1000, times: [0, 0.45, 0.8, 1] }}
             >
-              <img src="/logo/ils-logo-white.png" alt="ILS — International Logistic Services" />
+              <img src={asset('/logo/ils-logo-white.png')} alt="ILS — International Logistic Services" />
             </motion.div>
           </>
         )}
