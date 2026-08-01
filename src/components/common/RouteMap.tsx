@@ -79,7 +79,7 @@ export function RouteMap({ activeId, onSelect, animate }: Props) {
         </g>
 
         {/* Corridor path (animated draw) */}
-        <path d={pathD} fill="none" stroke="#12294a" strokeWidth="6" strokeLinecap="round" />
+        <path id="corridorPath" d={pathD} fill="none" stroke="#12294a" strokeWidth="6" strokeLinecap="round" />
         <motion.path
           d={pathD}
           fill="none"
@@ -90,6 +90,18 @@ export function RouteMap({ activeId, onSelect, animate }: Props) {
           animate={{ pathLength: animate ? 1 : 0 }}
           transition={{ duration: reduced ? 0 : 2.4, ease: 'easeInOut' }}
         />
+
+        {/* Live data pulses travelling the corridor */}
+        {!reduced &&
+          animate &&
+          [0, 1.6, 3.2].map((delay, i) => (
+            <circle key={i} r={i === 1 ? 5 : 3.5} fill="#bcd6fb" opacity="0.9">
+              <animateMotion dur="4.8s" begin={`${delay + 2.2}s`} repeatCount="indefinite" rotate="auto">
+                <mpath href="#corridorPath" />
+              </animateMotion>
+              <animate attributeName="opacity" values="0;1;1;0" dur="4.8s" begin={`${delay + 2.2}s`} repeatCount="indefinite" />
+            </circle>
+          ))}
 
         {/* Nodes */}
         {points.map((p, i) => {

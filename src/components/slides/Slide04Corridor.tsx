@@ -6,6 +6,7 @@ import { getLocation, type LocationId } from '@/data/locations';
 import { useInViewOnce } from '@/hooks/useInViewOnce';
 import { RouteMap } from '@/components/common/RouteMap';
 import { Drawer } from '@/components/common/Drawer';
+import { TechGrid } from '@/components/common/TechGrid';
 
 export function Slide04Corridor() {
   const [ref, inView] = useInViewOnce<HTMLDivElement>({ threshold: 0.3 });
@@ -14,7 +15,9 @@ export function Slide04Corridor() {
 
   return (
     <section className="slide slide--corridor" aria-label="The corridor nobody else wants">
-      <div className="slide-bg slide-bg--flat" aria-hidden="true" />
+      <div className="slide-bg slide-bg--flat" aria-hidden="true">
+        <TechGrid intensity={0.6} accent="orange" label="ILS · CORRIDOR TELEMETRY" />
+      </div>
       <div className="slide__inner" ref={ref}>
         <header className="slide-head slide-head--split">
           <div>

@@ -1,8 +1,10 @@
 /**
- * Generates polished, brand-consistent SVG placeholder compositions for every
- * image in the manifest. These are intentionally abstract (no fabricated
- * photos, logos, borders or statistics) and are clearly marked "PLACEHOLDER"
- * so they can be swapped for final Higgsfield 1K renders by filename.
+ * Generates CINEMATIC, atmospheric SVG placeholder compositions for every
+ * image in the manifest — dark, moody, film-graded backdrops (layered
+ * silhouettes, haze, light shafts, grain, ILS-blue grade) rather than
+ * iconographic clip-art. They read as premium cinematic depth behind the
+ * slide scrims. Each is clearly marked "PLACEHOLDER" for swap-out with the
+ * final Higgsfield 1K renders (see docs/HIGGSFIELD_IMAGE_PROMPTS.md).
  *
  *   node scripts/generate-placeholders.mjs
  */
@@ -15,149 +17,217 @@ const OUT = resolve(__dirname, '../public/assets/images');
 mkdirSync(OUT, { recursive: true });
 
 const C = {
-  navy: '#071B33',
-  navy2: '#0B2748',
-  cobalt: '#255AAD',
-  cobalt2: '#3A7BD5',
-  gold: '#E8B72E',
-  orange: '#E96332',
-  off: '#F6F8FB',
+  navy: '#04101f',
+  navy2: '#071b33',
+  blue: '#0e355f',
+  cobalt: '#255aad',
+  cobalt2: '#3a7bd5',
+  ice: '#8fb7e8',
+  gold: '#e8b72e',
+  amber: '#e9843a',
+  orange: '#e96332',
 };
 
-function frame(w, h, inner, { grid = true, glowFrom = C.cobalt } = {}) {
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" role="img">
-  <defs>
+/** Shared cinematic defs: grade, grain, haze, vignette, light. */
+function defs(w, h, opts) {
+  const horizon = opts.horizon ?? C.cobalt2;
+  const glow = opts.glow ?? C.gold;
+  return `<defs>
     <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#0e3057"/>
-      <stop offset="0.55" stop-color="${C.navy2}"/>
-      <stop offset="1" stop-color="${C.navy}"/>
+      <stop offset="0" stop-color="${opts.top ?? '#0a2039'}"/>
+      <stop offset="0.42" stop-color="${opts.mid ?? C.blue}"/>
+      <stop offset="0.7" stop-color="${horizon}"/>
+      <stop offset="1" stop-color="${opts.bottom ?? C.navy}"/>
     </linearGradient>
-    <radialGradient id="glow" cx="50%" cy="34%" r="60%">
-      <stop offset="0" stop-color="${glowFrom}" stop-opacity="0.5"/>
-      <stop offset="1" stop-color="${glowFrom}" stop-opacity="0"/>
+    <radialGradient id="sun" cx="${opts.sunX ?? 68}%" cy="${opts.sunY ?? 60}%" r="55%">
+      <stop offset="0" stop-color="${glow}" stop-opacity="${opts.sunA ?? 0.55}"/>
+      <stop offset="0.35" stop-color="${glow}" stop-opacity="0.14"/>
+      <stop offset="1" stop-color="${glow}" stop-opacity="0"/>
     </radialGradient>
-    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="${C.gold}"/>
-      <stop offset="1" stop-color="${C.orange}"/>
+    <radialGradient id="vig" cx="50%" cy="46%" r="75%">
+      <stop offset="0.55" stop-color="#000" stop-opacity="0"/>
+      <stop offset="1" stop-color="#000" stop-opacity="0.66"/>
+    </radialGradient>
+    <linearGradient id="cobaltShade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="${C.cobalt}" stop-opacity="0.0"/>
+      <stop offset="1" stop-color="${C.cobalt}" stop-opacity="0.22"/>
     </linearGradient>
-  </defs>
-  <rect width="${w}" height="${h}" fill="url(#sky)"/>
-  <rect width="${w}" height="${h}" fill="url(#glow)"/>
-  ${grid ? gridPattern(w, h) : ''}
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="${opts.seed ?? 7}" stitchTiles="stitch" result="n"/>
+      <feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.7 0"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.05"/></feComponentTransfer>
+      <feComposite operator="over" in2="SourceGraphic"/>
+    </filter>
+    <filter id="soft"><feGaussianBlur stdDeviation="${opts.soft ?? 3}"/></filter>
+    <filter id="haze"><feGaussianBlur stdDeviation="14"/></filter>
+  </defs>`;
+}
+
+/** A layered ridge/dune silhouette. */
+function ridge(w, h, baseY, amp, col, op, blur = 0) {
+  let d = `M0 ${h} L0 ${baseY}`;
+  const seg = 7;
+  for (let i = 0; i <= seg; i++) {
+    const x = (w / seg) * i;
+    const y = baseY + Math.sin(i * 1.7 + amp) * amp - (i % 2) * amp * 0.4;
+    d += ` L${x.toFixed(0)} ${y.toFixed(0)}`;
+  }
+  d += ` L${w} ${h} Z`;
+  return `<path d="${d}" fill="${col}" opacity="${op}"${blur ? ' filter="url(#soft)"' : ''}/>`;
+}
+
+/** Fine light shafts from the horizon. */
+function shafts(w, h, x, col) {
+  let s = `<g opacity="0.10" filter="url(#haze)">`;
+  for (let i = -3; i <= 3; i++) {
+    s += `<polygon points="${x},${h * 0.55} ${x + i * 40 - 60},0 ${x + i * 40 + 60},0" fill="${col}"/>`;
+  }
+  return s + `</g>`;
+}
+
+/** Distant crane line-art (fine, silhouetted). */
+function cranes(w, y, col) {
+  let g = `<g stroke="${col}" stroke-width="1.4" fill="none" opacity="0.5">`;
+  for (let i = 0; i < 5; i++) {
+    const x = w * (0.12 + i * 0.19);
+    const hh = 60 + (i % 3) * 22;
+    g += `<line x1="${x}" y1="${y}" x2="${x}" y2="${y - hh}"/>
+          <line x1="${x - 34}" y1="${y - hh}" x2="${x + 60}" y2="${y - hh + 6}"/>
+          <line x1="${x + 34}" y1="${y - hh + 3}" x2="${x + 34}" y2="${y - hh + 22}"/>`;
+  }
+  return g + `</g>`;
+}
+
+/** Container-stack texture as dim blocks. */
+function stacks(w, y, col) {
+  let g = `<g opacity="0.32">`;
+  for (let i = 0; i < 26; i++) {
+    const x = (i * 47) % w;
+    const row = ((i * 47) / w) | 0;
+    g += `<rect x="${x}" y="${y - row * 12}" width="42" height="11" fill="${col}" opacity="${0.4 + ((i % 3) * 0.2)}"/>`;
+  }
+  return g + `</g>`;
+}
+
+const frame = (w, h, inner) =>
+  `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" role="img" preserveAspectRatio="xMidYMid slice">
   ${inner}
-  <text x="${w - 18}" y="${h - 16}" text-anchor="end" font-family="Inter, sans-serif" font-size="13" fill="#ffffff" opacity="0.32" letter-spacing="2">PLACEHOLDER · REPLACE WITH HIGGSFIELD 1K</text>
+  <text x="${w - 16}" y="${h - 13}" text-anchor="end" font-family="Inter,system-ui,sans-serif" font-size="11" fill="#ffffff" opacity="0.22" letter-spacing="1.5">PLACEHOLDER · REPLACE WITH HIGGSFIELD 1K</text>
 </svg>`;
-}
 
-function gridPattern(w, h) {
-  let lines = '';
-  for (let x = 0; x <= w; x += 64) lines += `<line x1="${x}" y1="0" x2="${x}" y2="${h}"/>`;
-  for (let y = 0; y <= h; y += 64) lines += `<line x1="0" y1="${y}" x2="${w}" y2="${y}"/>`;
-  return `<g stroke="${C.cobalt2}" stroke-width="0.6" opacity="0.12">${lines}</g>`;
-}
-
-// Simple silhouette helpers ------------------------------------------------
-const crane = (x, y, s, col) =>
-  `<g stroke="${col}" stroke-width="${2 * s}" fill="none" opacity="0.8">
-    <line x1="${x}" y1="${y}" x2="${x}" y2="${y - 90 * s}"/>
-    <line x1="${x - 40 * s}" y1="${y - 90 * s}" x2="${x + 70 * s}" y2="${y - 90 * s}"/>
-    <line x1="${x + 40 * s}" y1="${y - 90 * s}" x2="${x + 40 * s}" y2="${y - 60 * s}"/>
-  </g>`;
-
-const container = (x, y, w, h, col) =>
-  `<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${col}" opacity="0.9" rx="2"/>
-   <line x1="${x + w / 3}" y1="${y}" x2="${x + w / 3}" y2="${y + h}" stroke="${C.navy}" stroke-width="1" opacity="0.5"/>
-   <line x1="${x + (2 * w) / 3}" y1="${y}" x2="${x + (2 * w) / 3}" y2="${y + h}" stroke="${C.navy}" stroke-width="1" opacity="0.5"/>`;
-
-const mountains = (w, h, col) =>
-  `<path d="M0,${h} L${w * 0.18},${h * 0.55} L${w * 0.32},${h * 0.72} L${w * 0.52},${h * 0.4} L${w * 0.7},${h * 0.68} L${w * 0.86},${h * 0.5} L${w},${h * 0.66} L${w},${h} Z" fill="${col}" opacity="0.55"/>`;
-
-const truck = (x, y, s, col, accent) =>
-  `<g>
-    <rect x="${x}" y="${y - 34 * s}" width="${90 * s}" height="${34 * s}" rx="3" fill="${col}"/>
-    <rect x="${x + 90 * s}" y="${y - 24 * s}" width="${30 * s}" height="${24 * s}" rx="3" fill="${accent}"/>
-    <circle cx="${x + 24 * s}" cy="${y}" r="${8 * s}" fill="#0a1a2e" stroke="${col}" stroke-width="${2 * s}"/>
-    <circle cx="${x + 66 * s}" cy="${y}" r="${8 * s}" fill="#0a1a2e" stroke="${col}" stroke-width="${2 * s}"/>
-    <circle cx="${x + 104 * s}" cy="${y}" r="${8 * s}" fill="#0a1a2e" stroke="${accent}" stroke-width="${2 * s}"/>
-  </g>`;
-
-const routeArc = (w, h) =>
-  `<path d="M${w * 0.05},${h * 0.8} C${w * 0.3},${h * 0.5} ${w * 0.6},${h * 0.55} ${w * 0.95},${h * 0.28}" fill="none" stroke="url(#gold)" stroke-width="2.5" stroke-dasharray="2 10" opacity="0.85"/>`;
-
-// Compositions -------------------------------------------------------------
-const images = {
+// ---- Scene compositions -------------------------------------------------
+const scenes = {
   'hero-convoy': (w, h) =>
-    `${mountains(w, h, '#0c2545')}${mountains(w, h * 1.08, '#0a1f3c')}
-     <g opacity="0.9">${truck(w * 0.24, h * 0.82, 1.6, C.cobalt, C.gold)}${truck(w * 0.5, h * 0.86, 1.9, C.cobalt2, C.orange)}${truck(w * 0.72, h * 0.83, 1.5, C.cobalt, C.gold)}</g>
-     ${routeArc(w, h)}
-     <circle cx="${w * 0.82}" cy="${h * 0.2}" r="46" fill="${C.gold}" opacity="0.14"/>`,
+    frame(w, h, `${defs(w, h, { top: '#071a30', mid: '#0c2745', horizon: '#123a63', bottom: C.navy, glow: C.gold, sunX: 72, sunY: 58, sunA: 0.6, seed: 4 })}
+    <rect width="${w}" height="${h}" fill="url(#sky)"/>
+    <rect width="${w}" height="${h}" fill="url(#sun)"/>
+    ${shafts(w, h, w * 0.72, C.gold)}
+    ${ridge(w, h, h * 0.62, 26, '#0a1f38', 0.9, 1)}
+    ${ridge(w, h, h * 0.72, 20, '#081a30', 0.95)}
+    ${ridge(w, h, h * 0.84, 12, '#050f1d', 1)}
+    <g opacity="0.9"><path d="M${w * 0.1} ${h * 0.9} Q ${w * 0.5} ${h * 0.8} ${w * 0.95} ${h * 0.66}" stroke="#12294a" stroke-width="10" fill="none"/>
+    <path d="M${w * 0.1} ${h * 0.9} Q ${w * 0.5} ${h * 0.8} ${w * 0.95} ${h * 0.66}" stroke="${C.cobalt2}" stroke-width="1" stroke-dasharray="3 9" fill="none" opacity="0.6"/></g>
+    <g fill="#040d19">
+      <path d="M${w * 0.3} ${h * 0.855} l30 -13 l8 13 z"/><rect x="${w * 0.3}" y="${h * 0.83}" width="30" height="26"/>
+      <path d="M${w * 0.42} ${h * 0.83} l26 -11 l7 11 z"/><rect x="${w * 0.42}" y="${h * 0.808}" width="26" height="23"/>
+      <path d="M${w * 0.53} ${h * 0.81} l22 -9 l6 9 z"/><rect x="${w * 0.53}" y="${h * 0.79}" width="22" height="20"/>
+    </g>
+    <ellipse cx="${w * 0.5}" cy="${h * 0.55}" rx="${w * 0.6}" ry="60" fill="${C.ice}" opacity="0.05" filter="url(#haze)"/>
+    <rect width="${w}" height="${h}" fill="url(#cobaltShade)"/>
+    <rect width="${w}" height="${h}" fill="url(#vig)"/>
+    <rect width="${w}" height="${h}" filter="url(#grain)" opacity="0.5"/>`),
+
   'hamburg-port': (w, h) =>
-    `<g>${crane(w * 0.2, h * 0.7, 1.3, C.cobalt2)}${crane(w * 0.45, h * 0.68, 1.5, C.cobalt2)}${crane(w * 0.72, h * 0.72, 1.2, C.cobalt2)}</g>
-     <g>${container(w * 0.12, h * 0.72, 60, 26, C.cobalt)}${container(w * 0.12, h * 0.72 + 28, 60, 26, C.cobalt2)}${container(w * 0.3, h * 0.75, 60, 26, C.orange)}${container(w * 0.55, h * 0.73, 60, 26, C.cobalt)}${container(w * 0.55, h * 0.73 + 28, 60, 26, C.gold)}${container(w * 0.72, h * 0.76, 60, 26, C.cobalt2)}</g>
-     <rect x="0" y="${h * 0.82}" width="${w}" height="${h * 0.18}" fill="#06182e" opacity="0.7"/>`,
+    frame(w, h, `${defs(w, h, { top: '#0a1d33', mid: '#0d2842', horizon: '#16324f', bottom: '#05121f', glow: C.ice, sunX: 40, sunY: 42, sunA: 0.3, seed: 11 })}
+    <rect width="${w}" height="${h}" fill="url(#sky)"/><rect width="${w}" height="${h}" fill="url(#sun)"/>
+    ${cranes(w, h * 0.66, C.cobalt2)}
+    ${stacks(w, h * 0.8, C.cobalt)}
+    <rect x="0" y="${h * 0.82}" width="${w}" height="${h * 0.18}" fill="#04101c"/>
+    <rect x="0" y="${h * 0.82}" width="${w}" height="${h * 0.18}" fill="${C.cobalt2}" opacity="0.06"/>
+    <rect width="${w}" height="${h}" fill="url(#vig)"/><rect width="${w}" height="${h}" filter="url(#grain)" opacity="0.5"/>`),
+
   'dubai-operations': (w, h) =>
-    `<g fill="#0c2545" opacity="0.85">
-       <rect x="${w * 0.62}" y="${h * 0.2}" width="26" height="${h * 0.6}"/>
-       <polygon points="${w * 0.72},${h * 0.08} ${w * 0.735},${h * 0.8} ${w * 0.705},${h * 0.8}"/>
-       <rect x="${w * 0.78}" y="${h * 0.32}" width="34" height="${h * 0.48}"/>
-       <rect x="${w * 0.86}" y="${h * 0.42}" width="24" height="${h * 0.38}"/>
-     </g>
-     <g>${container(w * 0.1, h * 0.72, 58, 24, C.cobalt)}${container(w * 0.26, h * 0.74, 58, 24, C.gold)}${container(w * 0.42, h * 0.72, 58, 24, C.cobalt2)}</g>
-     ${truck(w * 0.14, h * 0.86, 1.5, C.cobalt, C.orange)}
-     <rect x="0" y="${h * 0.82}" width="${w}" height="${h * 0.18}" fill="#06182e" opacity="0.6"/>`,
+    frame(w, h, `${defs(w, h, { top: '#0c2038', mid: '#123153', horizon: '#c98a3a', bottom: '#06121f', glow: C.gold, sunX: 78, sunY: 66, sunA: 0.5, seed: 21 })}
+    <rect width="${w}" height="${h}" fill="url(#sky)"/><rect width="${w}" height="${h}" fill="url(#sun)"/>
+    <g fill="#081b30" opacity="0.92">
+      <rect x="${w * 0.6}" y="${h * 0.24}" width="16" height="${h * 0.56}"/>
+      <polygon points="${w * 0.7},${h * 0.1} ${w * 0.712},${h * 0.8} ${w * 0.688},${h * 0.8}"/>
+      <rect x="${w * 0.76}" y="${h * 0.34}" width="26" height="${h * 0.46}"/>
+      <rect x="${w * 0.84}" y="${h * 0.44}" width="18" height="${h * 0.36}"/>
+      <rect x="${w * 0.9}" y="${h * 0.5}" width="12" height="${h * 0.3}"/>
+    </g>
+    ${cranes(w * 0.6, h * 0.72, C.cobalt2)}
+    ${stacks(w * 0.55, h * 0.82, C.cobalt)}
+    <rect x="0" y="${h * 0.8}" width="${w}" height="${h * 0.2}" fill="#050f1c"/>
+    <rect width="${w}" height="${h}" fill="url(#vig)"/><rect width="${w}" height="${h}" filter="url(#grain)" opacity="0.5"/>`),
+
   'central-asia-corridor': (w, h) =>
-    `${mountains(w, h, '#0c2545')}
-     <path d="M0,${h * 0.9} C${w * 0.3},${h * 0.82} ${w * 0.6},${h * 0.92} ${w},${h * 0.8}" fill="none" stroke="#12294a" stroke-width="30"/>
-     <path d="M0,${h * 0.9} C${w * 0.3},${h * 0.82} ${w * 0.6},${h * 0.92} ${w},${h * 0.8}" fill="none" stroke="${C.gold}" stroke-width="2" stroke-dasharray="14 14" opacity="0.7"/>
-     ${truck(w * 0.4, h * 0.88, 1.7, C.cobalt2, C.orange)}`,
+    frame(w, h, `${defs(w, h, { top: '#0a1c31', mid: '#102a45', horizon: '#2a4a6e', bottom: '#050f1c', glow: C.ice, sunX: 30, sunY: 40, sunA: 0.28, seed: 33 })}
+    <rect width="${w}" height="${h}" fill="url(#sky)"/><rect width="${w}" height="${h}" fill="url(#sun)"/>
+    ${ridge(w, h, h * 0.5, 34, '#0c2440', 0.85, 1)}
+    ${ridge(w, h, h * 0.64, 26, '#0a1d34', 0.95)}
+    ${ridge(w, h, h * 0.8, 14, '#06121f', 1)}
+    <path d="M0 ${h * 0.92} C ${w * 0.35} ${h * 0.82} ${w * 0.6} ${h * 0.95} ${w} ${h * 0.82}" stroke="#132b4c" stroke-width="16" fill="none"/>
+    <path d="M0 ${h * 0.92} C ${w * 0.35} ${h * 0.82} ${w * 0.6} ${h * 0.95} ${w} ${h * 0.82}" stroke="${C.gold}" stroke-width="1.2" stroke-dasharray="6 12" fill="none" opacity="0.55"/>
+    <rect width="${w}" height="${h}" fill="url(#vig)"/><rect width="${w}" height="${h}" filter="url(#grain)" opacity="0.5"/>`),
+
   'kabul-corridor': (w, h) =>
-    `${mountains(w, h * 0.95, '#0b2140')}${mountains(w, h * 1.1, '#091b34')}
-     <path d="M${w * 0.1},${h * 0.9} Q${w * 0.5},${h * 0.7} ${w * 0.92},${h * 0.5}" fill="none" stroke="url(#gold)" stroke-width="2.5" stroke-dasharray="2 10"/>
-     ${truck(w * 0.32, h * 0.9, 1.5, C.cobalt, C.gold)}${truck(w * 0.54, h * 0.86, 1.3, C.cobalt2, C.gold)}
-     <circle cx="${w * 0.8}" cy="${h * 0.24}" r="30" fill="${C.gold}" opacity="0.1"/>`,
+    frame(w, h, `${defs(w, h, { top: '#0a1a2f', mid: '#0f2742', horizon: '#3a5573', bottom: '#050e1b', glow: C.gold, sunX: 74, sunY: 30, sunA: 0.3, seed: 44 })}
+    <rect width="${w}" height="${h}" fill="url(#sky)"/><rect width="${w}" height="${h}" fill="url(#sun)"/>
+    ${ridge(w, h, h * 0.42, 40, '#0b2038', 0.8, 1)}
+    ${ridge(w, h, h * 0.58, 30, '#091a30', 0.92)}
+    ${ridge(w, h, h * 0.78, 16, '#050f1c', 1)}
+    <path d="M${w * 0.08} ${h * 0.9} Q ${w * 0.5} ${h * 0.72} ${w * 0.94} ${h * 0.52}" stroke="${C.gold}" stroke-width="1.4" stroke-dasharray="3 9" fill="none" opacity="0.6"/>
+    <g fill="#040d18"><rect x="${w * 0.3}" y="${h * 0.84}" width="26" height="20"/><rect x="${w * 0.4}" y="${h * 0.8}" width="20" height="16"/></g>
+    <rect width="${w}" height="${h}" fill="url(#vig)"/><rect width="${w}" height="${h}" filter="url(#grain)" opacity="0.5"/>`),
+
   'karachi-port': (w, h) =>
-    `<g>${crane(w * 0.28, h * 0.66, 1.6, C.cobalt2)}${crane(w * 0.58, h * 0.68, 1.4, C.cobalt2)}${crane(w * 0.82, h * 0.7, 1.2, C.cobalt2)}</g>
-     <g>${container(w * 0.14, h * 0.74, 62, 26, C.orange)}${container(w * 0.14, h * 0.74 + 28, 62, 26, C.cobalt)}${container(w * 0.36, h * 0.76, 62, 26, C.cobalt2)}${container(w * 0.6, h * 0.75, 62, 26, C.gold)}</g>
-     <rect x="0" y="${h * 0.84}" width="${w}" height="${h * 0.16}" fill="#06182e" opacity="0.7"/>`,
-  'heavy-lift': (w, h) => {
-    const y = h * 0.68;
-    let axles = '';
-    for (let i = 0; i < 10; i++) axles += `<circle cx="${w * 0.2 + i * 34}" cy="${y + 40}" r="12" fill="#0a1a2e" stroke="${C.cobalt2}" stroke-width="3"/>`;
-    return `${mountains(w, h, '#0b2140')}
-      <rect x="${w * 0.16}" y="${y}" width="${w * 0.42}" height="24" fill="${C.cobalt}"/>
-      <rect x="${w * 0.2}" y="${y - 90}" width="${w * 0.3}" height="90" fill="#123a66" stroke="${C.cobalt2}" stroke-width="2"/>
-      <rect x="${w * 0.24}" y="${y - 70}" width="30" height="60" fill="#0e2f52"/>
-      <rect x="${w * 0.32}" y="${y - 74}" width="40" height="64" fill="#0e2f52"/>
-      ${axles}
-      ${truck(w * 0.05, y + 52, 1.4, C.orange, C.gold)}
-      <text x="${w * 0.35}" y="${y - 40}" text-anchor="middle" font-family="Inter" font-size="16" fill="${C.off}" opacity="0.5">REFINERY MODULE</text>`;
-  },
+    frame(w, h, `${defs(w, h, { top: '#0b1e34', mid: '#12314f', horizon: '#b5762f', bottom: '#05121f', glow: C.amber, sunX: 26, sunY: 52, sunA: 0.42, seed: 55 })}
+    <rect width="${w}" height="${h}" fill="url(#sky)"/><rect width="${w}" height="${h}" fill="url(#sun)"/>
+    ${cranes(w, h * 0.68, C.cobalt2)}
+    ${stacks(w, h * 0.82, C.cobalt)}
+    <rect x="0" y="${h * 0.84}" width="${w}" height="${h * 0.16}" fill="#04101c"/>
+    <rect width="${w}" height="${h}" fill="url(#vig)"/><rect width="${w}" height="${h}" filter="url(#grain)" opacity="0.5"/>`),
+
+  'heavy-lift': (w, h) =>
+    frame(w, h, `${defs(w, h, { top: '#091a30', mid: '#0e2743', horizon: '#1c3c60', bottom: '#050f1c', glow: C.cobalt2, sunX: 30, sunY: 40, sunA: 0.34, seed: 66 })}
+    <rect width="${w}" height="${h}" fill="url(#sky)"/><rect width="${w}" height="${h}" fill="url(#sun)"/>
+    ${ridge(w, h, h * 0.56, 20, '#0a1f38', 0.85, 1)}
+    <g>
+      <rect x="${w * 0.16}" y="${h * 0.58}" width="${w * 0.46}" height="${h * 0.16}" fill="#0d2645" stroke="${C.cobalt2}" stroke-width="1.5"/>
+      <rect x="${w * 0.2}" y="${h * 0.5}" width="${w * 0.3}" height="${h * 0.09}" fill="#10365f"/>
+      <rect x="${w * 0.24}" y="${h * 0.54}" width="26" height="${h * 0.06}" fill="#0a2036"/>
+      <rect x="${w * 0.16}" y="${h * 0.74}" width="${w * 0.48}" height="10" fill="#0a1c33"/>
+      ${Array.from({ length: 11 }).map((_, i) => `<circle cx="${w * 0.2 + i * 34}" cy="${h * 0.79}" r="9" fill="#04101c" stroke="${C.cobalt2}" stroke-width="2"/>`).join('')}
+      <circle cx="${w * 0.08}" cy="${h * 0.75}" r="4" fill="${C.amber}"/><circle cx="${w * 0.72}" cy="${h * 0.75}" r="4" fill="${C.orange}"/>
+    </g>
+    <rect width="${w}" height="${h}" fill="url(#cobaltShade)"/><rect width="${w}" height="${h}" fill="url(#vig)"/><rect width="${w}" height="${h}" filter="url(#grain)" opacity="0.5"/>`),
+
   'humanitarian-case': (w, h) =>
-    `${mountains(w, h * 0.95, '#0b2140')}${mountains(w, h * 1.12, '#091b34')}
-     <path d="M${w * 0.06},${h * 0.86} Q${w * 0.5},${h * 0.66} ${w * 0.94},${h * 0.46}" fill="none" stroke="url(#gold)" stroke-width="2.5" stroke-dasharray="2 10"/>
-     <g>${container(w * 0.3, h * 0.74, 70, 30, C.cobalt)}${container(w * 0.44, h * 0.72, 70, 30, C.off)}${container(w * 0.44, h * 0.72, 70, 30, '#c9d6e6')}</g>
-     ${truck(w * 0.24, h * 0.9, 1.6, C.cobalt2, C.gold)}
-     <text x="${w * 0.52}" y="${h * 0.71}" font-family="Inter" font-size="14" fill="${C.navy}" opacity="0.6">RELIEF</text>`,
+    frame(w, h, `${defs(w, h, { top: '#0a1b30', mid: '#102842', horizon: '#3a5674', bottom: '#050e1b', glow: C.gold, sunX: 66, sunY: 34, sunA: 0.32, seed: 77 })}
+    <rect width="${w}" height="${h}" fill="url(#sky)"/><rect width="${w}" height="${h}" fill="url(#sun)"/>
+    ${ridge(w, h, h * 0.46, 34, '#0b2038', 0.82, 1)}
+    ${ridge(w, h, h * 0.64, 24, '#091a30', 0.93)}
+    <path d="M${w * 0.06} ${h * 0.88} Q ${w * 0.5} ${h * 0.68} ${w * 0.94} ${h * 0.5}" stroke="${C.gold}" stroke-width="1.4" stroke-dasharray="3 9" fill="none" opacity="0.6"/>
+    <g><rect x="${w * 0.34}" y="${h * 0.74}" width="60" height="26" fill="#0e3157"/><rect x="${w * 0.45}" y="${h * 0.72}" width="60" height="26" fill="#123a66"/></g>
+    <rect width="${w}" height="${h}" fill="url(#vig)"/><rect width="${w}" height="${h}" filter="url(#grain)" opacity="0.5"/>`),
 };
 
 const sizes = {
   'hero-convoy': [1600, 900],
-  'hamburg-port': [900, 600],
-  'dubai-operations': [900, 600],
-  'central-asia-corridor': [900, 600],
-  'kabul-corridor': [900, 600],
-  'karachi-port': [900, 600],
+  'hamburg-port': [1000, 667],
+  'dubai-operations': [1000, 667],
+  'central-asia-corridor': [1000, 667],
+  'kabul-corridor': [1000, 667],
+  'karachi-port': [1000, 667],
   'heavy-lift': [1600, 900],
   'humanitarian-case': [1600, 900],
 };
 
 let count = 0;
-for (const [id, draw] of Object.entries(images)) {
+for (const [id, draw] of Object.entries(scenes)) {
   const [w, h] = sizes[id];
-  const svg = frame(w, h, draw(w, h), {
-    glowFrom: id.includes('kabul') || id.includes('humanitarian') ? C.gold : C.cobalt,
-  });
-  writeFileSync(resolve(OUT, `${id}.svg`), svg);
+  writeFileSync(resolve(OUT, `${id}.svg`), draw(w, h));
   count += 1;
 }
-console.log(`Generated ${count} placeholder images in ${OUT}`);
+console.log(`Generated ${count} cinematic placeholder images in ${OUT}`);

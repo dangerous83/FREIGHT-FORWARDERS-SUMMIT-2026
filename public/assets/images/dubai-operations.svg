@@ -1,42 +1,54 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="900" height="600" viewBox="0 0 900 600" role="img">
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="667" viewBox="0 0 1000 667" role="img" preserveAspectRatio="xMidYMid slice">
   <defs>
     <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#0e3057"/>
-      <stop offset="0.55" stop-color="#0B2748"/>
-      <stop offset="1" stop-color="#071B33"/>
+      <stop offset="0" stop-color="#0c2038"/>
+      <stop offset="0.42" stop-color="#123153"/>
+      <stop offset="0.7" stop-color="#c98a3a"/>
+      <stop offset="1" stop-color="#06121f"/>
     </linearGradient>
-    <radialGradient id="glow" cx="50%" cy="34%" r="60%">
-      <stop offset="0" stop-color="#255AAD" stop-opacity="0.5"/>
-      <stop offset="1" stop-color="#255AAD" stop-opacity="0"/>
+    <radialGradient id="sun" cx="78%" cy="66%" r="55%">
+      <stop offset="0" stop-color="#e8b72e" stop-opacity="0.5"/>
+      <stop offset="0.35" stop-color="#e8b72e" stop-opacity="0.14"/>
+      <stop offset="1" stop-color="#e8b72e" stop-opacity="0"/>
     </radialGradient>
-    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#E8B72E"/>
-      <stop offset="1" stop-color="#E96332"/>
+    <radialGradient id="vig" cx="50%" cy="46%" r="75%">
+      <stop offset="0.55" stop-color="#000" stop-opacity="0"/>
+      <stop offset="1" stop-color="#000" stop-opacity="0.66"/>
+    </radialGradient>
+    <linearGradient id="cobaltShade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#255aad" stop-opacity="0.0"/>
+      <stop offset="1" stop-color="#255aad" stop-opacity="0.22"/>
     </linearGradient>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="21" stitchTiles="stitch" result="n"/>
+      <feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.7 0"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.05"/></feComponentTransfer>
+      <feComposite operator="over" in2="SourceGraphic"/>
+    </filter>
+    <filter id="soft"><feGaussianBlur stdDeviation="3"/></filter>
+    <filter id="haze"><feGaussianBlur stdDeviation="14"/></filter>
   </defs>
-  <rect width="900" height="600" fill="url(#sky)"/>
-  <rect width="900" height="600" fill="url(#glow)"/>
-  <g stroke="#3A7BD5" stroke-width="0.6" opacity="0.12"><line x1="0" y1="0" x2="0" y2="600"/><line x1="64" y1="0" x2="64" y2="600"/><line x1="128" y1="0" x2="128" y2="600"/><line x1="192" y1="0" x2="192" y2="600"/><line x1="256" y1="0" x2="256" y2="600"/><line x1="320" y1="0" x2="320" y2="600"/><line x1="384" y1="0" x2="384" y2="600"/><line x1="448" y1="0" x2="448" y2="600"/><line x1="512" y1="0" x2="512" y2="600"/><line x1="576" y1="0" x2="576" y2="600"/><line x1="640" y1="0" x2="640" y2="600"/><line x1="704" y1="0" x2="704" y2="600"/><line x1="768" y1="0" x2="768" y2="600"/><line x1="832" y1="0" x2="832" y2="600"/><line x1="896" y1="0" x2="896" y2="600"/><line x1="0" y1="0" x2="900" y2="0"/><line x1="0" y1="64" x2="900" y2="64"/><line x1="0" y1="128" x2="900" y2="128"/><line x1="0" y1="192" x2="900" y2="192"/><line x1="0" y1="256" x2="900" y2="256"/><line x1="0" y1="320" x2="900" y2="320"/><line x1="0" y1="384" x2="900" y2="384"/><line x1="0" y1="448" x2="900" y2="448"/><line x1="0" y1="512" x2="900" y2="512"/><line x1="0" y1="576" x2="900" y2="576"/></g>
-  <g fill="#0c2545" opacity="0.85">
-       <rect x="558" y="120" width="26" height="360"/>
-       <polygon points="648,48 661.5,480 634.5,480"/>
-       <rect x="702" y="192" width="34" height="288"/>
-       <rect x="774" y="252" width="24" height="228"/>
-     </g>
-     <g><rect x="90" y="432" width="58" height="24" fill="#255AAD" opacity="0.9" rx="2"/>
-   <line x1="109.33333333333333" y1="432" x2="109.33333333333333" y2="456" stroke="#071B33" stroke-width="1" opacity="0.5"/>
-   <line x1="128.66666666666666" y1="432" x2="128.66666666666666" y2="456" stroke="#071B33" stroke-width="1" opacity="0.5"/><rect x="234" y="444" width="58" height="24" fill="#E8B72E" opacity="0.9" rx="2"/>
-   <line x1="253.33333333333334" y1="444" x2="253.33333333333334" y2="468" stroke="#071B33" stroke-width="1" opacity="0.5"/>
-   <line x1="272.6666666666667" y1="444" x2="272.6666666666667" y2="468" stroke="#071B33" stroke-width="1" opacity="0.5"/><rect x="378" y="432" width="58" height="24" fill="#3A7BD5" opacity="0.9" rx="2"/>
-   <line x1="397.3333333333333" y1="432" x2="397.3333333333333" y2="456" stroke="#071B33" stroke-width="1" opacity="0.5"/>
-   <line x1="416.6666666666667" y1="432" x2="416.6666666666667" y2="456" stroke="#071B33" stroke-width="1" opacity="0.5"/></g>
-     <g>
-    <rect x="126.00000000000001" y="465" width="135" height="51" rx="3" fill="#255AAD"/>
-    <rect x="261" y="480" width="45" height="36" rx="3" fill="#E96332"/>
-    <circle cx="162" cy="516" r="12" fill="#0a1a2e" stroke="#255AAD" stroke-width="3"/>
-    <circle cx="225" cy="516" r="12" fill="#0a1a2e" stroke="#255AAD" stroke-width="3"/>
-    <circle cx="282" cy="516" r="12" fill="#0a1a2e" stroke="#E96332" stroke-width="3"/>
-  </g>
-     <rect x="0" y="491.99999999999994" width="900" height="108" fill="#06182e" opacity="0.6"/>
-  <text x="882" y="584" text-anchor="end" font-family="Inter, sans-serif" font-size="13" fill="#ffffff" opacity="0.32" letter-spacing="2">PLACEHOLDER · REPLACE WITH HIGGSFIELD 1K</text>
+    <rect width="1000" height="667" fill="url(#sky)"/><rect width="1000" height="667" fill="url(#sun)"/>
+    <g fill="#081b30" opacity="0.92">
+      <rect x="600" y="160.07999999999998" width="16" height="373.52000000000004"/>
+      <polygon points="700,66.7 712,533.6 688,533.6"/>
+      <rect x="760" y="226.78000000000003" width="26" height="306.82"/>
+      <rect x="840" y="293.48" width="18" height="240.12"/>
+      <rect x="900" y="333.5" width="12" height="200.1"/>
+    </g>
+    <g stroke="#3a7bd5" stroke-width="1.4" fill="none" opacity="0.5"><line x1="72" y1="480.24" x2="72" y2="420.24"/>
+          <line x1="38" y1="420.24" x2="132" y2="426.24"/>
+          <line x1="106" y1="423.24" x2="106" y2="442.24"/><line x1="186" y1="480.24" x2="186" y2="398.24"/>
+          <line x1="152" y1="398.24" x2="246" y2="404.24"/>
+          <line x1="220" y1="401.24" x2="220" y2="420.24"/><line x1="300" y1="480.24" x2="300" y2="376.24"/>
+          <line x1="266" y1="376.24" x2="360" y2="382.24"/>
+          <line x1="334" y1="379.24" x2="334" y2="398.24"/><line x1="414.00000000000006" y1="480.24" x2="414.00000000000006" y2="420.24"/>
+          <line x1="380.00000000000006" y1="420.24" x2="474.00000000000006" y2="426.24"/>
+          <line x1="448.00000000000006" y1="423.24" x2="448.00000000000006" y2="442.24"/><line x1="528" y1="480.24" x2="528" y2="398.24"/>
+          <line x1="494" y1="398.24" x2="588" y2="404.24"/>
+          <line x1="562" y1="401.24" x2="562" y2="420.24"/></g>
+    <g opacity="0.32"><rect x="0" y="546.9399999999999" width="42" height="11" fill="#255aad" opacity="0.4"/><rect x="47" y="546.9399999999999" width="42" height="11" fill="#255aad" opacity="0.6000000000000001"/><rect x="94" y="546.9399999999999" width="42" height="11" fill="#255aad" opacity="0.8"/><rect x="141" y="546.9399999999999" width="42" height="11" fill="#255aad" opacity="0.4"/><rect x="188" y="546.9399999999999" width="42" height="11" fill="#255aad" opacity="0.6000000000000001"/><rect x="235" y="546.9399999999999" width="42" height="11" fill="#255aad" opacity="0.8"/><rect x="282" y="546.9399999999999" width="42" height="11" fill="#255aad" opacity="0.4"/><rect x="329" y="546.9399999999999" width="42" height="11" fill="#255aad" opacity="0.6000000000000001"/><rect x="376" y="546.9399999999999" width="42" height="11" fill="#255aad" opacity="0.8"/><rect x="423" y="546.9399999999999" width="42" height="11" fill="#255aad" opacity="0.4"/><rect x="470" y="546.9399999999999" width="42" height="11" fill="#255aad" opacity="0.6000000000000001"/><rect x="517" y="546.9399999999999" width="42" height="11" fill="#255aad" opacity="0.8"/><rect x="14" y="534.9399999999999" width="42" height="11" fill="#255aad" opacity="0.4"/><rect x="61" y="534.9399999999999" width="42" height="11" fill="#255aad" opacity="0.6000000000000001"/><rect x="108" y="534.9399999999999" width="42" height="11" fill="#255aad" opacity="0.8"/><rect x="155" y="534.9399999999999" width="42" height="11" fill="#255aad" opacity="0.4"/><rect x="202" y="534.9399999999999" width="42" height="11" fill="#255aad" opacity="0.6000000000000001"/><rect x="249" y="534.9399999999999" width="42" height="11" fill="#255aad" opacity="0.8"/><rect x="296" y="534.9399999999999" width="42" height="11" fill="#255aad" opacity="0.4"/><rect x="343" y="534.9399999999999" width="42" height="11" fill="#255aad" opacity="0.6000000000000001"/><rect x="390" y="534.9399999999999" width="42" height="11" fill="#255aad" opacity="0.8"/><rect x="437" y="534.9399999999999" width="42" height="11" fill="#255aad" opacity="0.4"/><rect x="484" y="534.9399999999999" width="42" height="11" fill="#255aad" opacity="0.6000000000000001"/><rect x="531" y="534.9399999999999" width="42" height="11" fill="#255aad" opacity="0.8"/><rect x="28" y="522.9399999999999" width="42" height="11" fill="#255aad" opacity="0.4"/><rect x="75" y="522.9399999999999" width="42" height="11" fill="#255aad" opacity="0.6000000000000001"/></g>
+    <rect x="0" y="533.6" width="1000" height="133.4" fill="#050f1c"/>
+    <rect width="1000" height="667" fill="url(#vig)"/><rect width="1000" height="667" filter="url(#grain)" opacity="0.5"/>
+  <text x="984" y="654" text-anchor="end" font-family="Inter,system-ui,sans-serif" font-size="11" fill="#ffffff" opacity="0.22" letter-spacing="1.5">PLACEHOLDER · REPLACE WITH HIGGSFIELD 1K</text>
 </svg>
