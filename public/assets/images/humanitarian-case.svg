@@ -1,38 +1,38 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img">
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" preserveAspectRatio="xMidYMid slice">
   <defs>
     <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#0e3057"/>
-      <stop offset="0.55" stop-color="#0B2748"/>
-      <stop offset="1" stop-color="#071B33"/>
+      <stop offset="0" stop-color="#0a1b30"/>
+      <stop offset="0.42" stop-color="#102842"/>
+      <stop offset="0.7" stop-color="#3a5674"/>
+      <stop offset="1" stop-color="#050e1b"/>
     </linearGradient>
-    <radialGradient id="glow" cx="50%" cy="34%" r="60%">
-      <stop offset="0" stop-color="#E8B72E" stop-opacity="0.5"/>
-      <stop offset="1" stop-color="#E8B72E" stop-opacity="0"/>
+    <radialGradient id="sun" cx="66%" cy="34%" r="55%">
+      <stop offset="0" stop-color="#e8b72e" stop-opacity="0.32"/>
+      <stop offset="0.35" stop-color="#e8b72e" stop-opacity="0.14"/>
+      <stop offset="1" stop-color="#e8b72e" stop-opacity="0"/>
     </radialGradient>
-    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#E8B72E"/>
-      <stop offset="1" stop-color="#E96332"/>
+    <radialGradient id="vig" cx="50%" cy="46%" r="75%">
+      <stop offset="0.55" stop-color="#000" stop-opacity="0"/>
+      <stop offset="1" stop-color="#000" stop-opacity="0.66"/>
+    </radialGradient>
+    <linearGradient id="cobaltShade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#255aad" stop-opacity="0.0"/>
+      <stop offset="1" stop-color="#255aad" stop-opacity="0.22"/>
     </linearGradient>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="77" stitchTiles="stitch" result="n"/>
+      <feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.7 0"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.05"/></feComponentTransfer>
+      <feComposite operator="over" in2="SourceGraphic"/>
+    </filter>
+    <filter id="soft"><feGaussianBlur stdDeviation="3"/></filter>
+    <filter id="haze"><feGaussianBlur stdDeviation="14"/></filter>
   </defs>
-  <rect width="1600" height="900" fill="url(#sky)"/>
-  <rect width="1600" height="900" fill="url(#glow)"/>
-  <g stroke="#3A7BD5" stroke-width="0.6" opacity="0.12"><line x1="0" y1="0" x2="0" y2="900"/><line x1="64" y1="0" x2="64" y2="900"/><line x1="128" y1="0" x2="128" y2="900"/><line x1="192" y1="0" x2="192" y2="900"/><line x1="256" y1="0" x2="256" y2="900"/><line x1="320" y1="0" x2="320" y2="900"/><line x1="384" y1="0" x2="384" y2="900"/><line x1="448" y1="0" x2="448" y2="900"/><line x1="512" y1="0" x2="512" y2="900"/><line x1="576" y1="0" x2="576" y2="900"/><line x1="640" y1="0" x2="640" y2="900"/><line x1="704" y1="0" x2="704" y2="900"/><line x1="768" y1="0" x2="768" y2="900"/><line x1="832" y1="0" x2="832" y2="900"/><line x1="896" y1="0" x2="896" y2="900"/><line x1="960" y1="0" x2="960" y2="900"/><line x1="1024" y1="0" x2="1024" y2="900"/><line x1="1088" y1="0" x2="1088" y2="900"/><line x1="1152" y1="0" x2="1152" y2="900"/><line x1="1216" y1="0" x2="1216" y2="900"/><line x1="1280" y1="0" x2="1280" y2="900"/><line x1="1344" y1="0" x2="1344" y2="900"/><line x1="1408" y1="0" x2="1408" y2="900"/><line x1="1472" y1="0" x2="1472" y2="900"/><line x1="1536" y1="0" x2="1536" y2="900"/><line x1="1600" y1="0" x2="1600" y2="900"/><line x1="0" y1="0" x2="1600" y2="0"/><line x1="0" y1="64" x2="1600" y2="64"/><line x1="0" y1="128" x2="1600" y2="128"/><line x1="0" y1="192" x2="1600" y2="192"/><line x1="0" y1="256" x2="1600" y2="256"/><line x1="0" y1="320" x2="1600" y2="320"/><line x1="0" y1="384" x2="1600" y2="384"/><line x1="0" y1="448" x2="1600" y2="448"/><line x1="0" y1="512" x2="1600" y2="512"/><line x1="0" y1="576" x2="1600" y2="576"/><line x1="0" y1="640" x2="1600" y2="640"/><line x1="0" y1="704" x2="1600" y2="704"/><line x1="0" y1="768" x2="1600" y2="768"/><line x1="0" y1="832" x2="1600" y2="832"/><line x1="0" y1="896" x2="1600" y2="896"/></g>
-  <path d="M0,855 L288,470.25000000000006 L512,615.6 L832,342 L1120,581.4000000000001 L1376,427.5 L1600,564.3000000000001 L1600,855 Z" fill="#0b2140" opacity="0.55"/><path d="M0,1008.0000000000001 L288,554.4000000000001 L512,725.7600000000001 L832,403.20000000000005 L1120,685.4400000000002 L1376,504.00000000000006 L1600,665.2800000000001 L1600,1008.0000000000001 Z" fill="#091b34" opacity="0.55"/>
-     <path d="M96,774 Q800,594 1504,414" fill="none" stroke="url(#gold)" stroke-width="2.5" stroke-dasharray="2 10"/>
-     <g><rect x="480" y="666" width="70" height="30" fill="#255AAD" opacity="0.9" rx="2"/>
-   <line x1="503.3333333333333" y1="666" x2="503.3333333333333" y2="696" stroke="#071B33" stroke-width="1" opacity="0.5"/>
-   <line x1="526.6666666666666" y1="666" x2="526.6666666666666" y2="696" stroke="#071B33" stroke-width="1" opacity="0.5"/><rect x="704" y="648" width="70" height="30" fill="#F6F8FB" opacity="0.9" rx="2"/>
-   <line x1="727.3333333333334" y1="648" x2="727.3333333333334" y2="678" stroke="#071B33" stroke-width="1" opacity="0.5"/>
-   <line x1="750.6666666666666" y1="648" x2="750.6666666666666" y2="678" stroke="#071B33" stroke-width="1" opacity="0.5"/><rect x="704" y="648" width="70" height="30" fill="#c9d6e6" opacity="0.9" rx="2"/>
-   <line x1="727.3333333333334" y1="648" x2="727.3333333333334" y2="678" stroke="#071B33" stroke-width="1" opacity="0.5"/>
-   <line x1="750.6666666666666" y1="648" x2="750.6666666666666" y2="678" stroke="#071B33" stroke-width="1" opacity="0.5"/></g>
-     <g>
-    <rect x="384" y="755.6" width="144" height="54.400000000000006" rx="3" fill="#3A7BD5"/>
-    <rect x="528" y="771.6" width="48" height="38.400000000000006" rx="3" fill="#E8B72E"/>
-    <circle cx="422.4" cy="810" r="12.8" fill="#0a1a2e" stroke="#3A7BD5" stroke-width="3.2"/>
-    <circle cx="489.6" cy="810" r="12.8" fill="#0a1a2e" stroke="#3A7BD5" stroke-width="3.2"/>
-    <circle cx="550.4" cy="810" r="12.8" fill="#0a1a2e" stroke="#E8B72E" stroke-width="3.2"/>
-  </g>
-     <text x="832" y="639" font-family="Inter" font-size="14" fill="#071B33" opacity="0.6">RELIEF</text>
-  <text x="1582" y="884" text-anchor="end" font-family="Inter, sans-serif" font-size="13" fill="#ffffff" opacity="0.32" letter-spacing="2">PLACEHOLDER · REPLACE WITH HIGGSFIELD 1K</text>
+    <rect width="1600" height="900" fill="url(#sky)"/><rect width="1600" height="900" fill="url(#sun)"/>
+    <path d="M0 900 L0 414 L0 432 L229 369 L457 404 L686 434 L914 415 L1143 367 L1371 421 L1600 432 L1600 900 Z" fill="#0b2038" opacity="0.82" filter="url(#soft)"/>
+    <path d="M0 900 L0 576 L0 554 L229 579 L457 594 L686 549 L914 562 L1143 588 L1371 584 L1600 543 L1600 900 Z" fill="#091a30" opacity="0.93"/>
+    <path d="M96 792 Q 800 612 1504 450" stroke="#e8b72e" stroke-width="1.4" stroke-dasharray="3 9" fill="none" opacity="0.6"/>
+    <g><rect x="544" y="666" width="60" height="26" fill="#0e3157"/><rect x="720" y="648" width="60" height="26" fill="#123a66"/></g>
+    <rect width="1600" height="900" fill="url(#vig)"/><rect width="1600" height="900" filter="url(#grain)" opacity="0.5"/>
+  <text x="1584" y="887" text-anchor="end" font-family="Inter,system-ui,sans-serif" font-size="11" fill="#ffffff" opacity="0.22" letter-spacing="1.5">PLACEHOLDER · REPLACE WITH HIGGSFIELD 1K</text>
 </svg>

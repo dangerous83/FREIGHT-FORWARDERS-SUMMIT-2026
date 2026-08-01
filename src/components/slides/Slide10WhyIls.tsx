@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Check, X } from 'lucide-react';
 import { whyIlsContent } from '@/data/slides';
+import { TechGrid } from '@/components/common/TechGrid';
 
 export function Slide10WhyIls() {
   const [active, setActive] = useState(whyIlsContent.differentiators[0].id);
@@ -9,7 +10,9 @@ export function Slide10WhyIls() {
 
   return (
     <section className="slide slide--why" aria-label="Why ILS">
-      <div className="slide-bg slide-bg--flat" aria-hidden="true" />
+      <div className="slide-bg slide-bg--flat" aria-hidden="true">
+        <TechGrid intensity={0.5} accent="cobalt" label="ILS · DIFFERENTIAL ANALYSIS" />
+      </div>
       <div className="slide__inner why-layout">
         <header className="slide-head">
           <p className="kicker">{whyIlsContent.kicker}</p>

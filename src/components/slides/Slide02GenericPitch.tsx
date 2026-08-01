@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Ship, Plane, Truck } from 'lucide-react';
 import { genericPitch, type ServiceCard } from '@/data/slides';
 import { AnimatedHeadline } from '@/components/common/AnimatedHeadline';
+import { TechGrid } from '@/components/common/TechGrid';
 
 const iconFor: Record<ServiceCard['icon'], typeof Ship> = { ship: Ship, plane: Plane, truck: Truck };
 
@@ -51,7 +52,9 @@ function Card({ card, index }: { card: ServiceCard; index: number }) {
 export function Slide02GenericPitch() {
   return (
     <section className="slide slide--pitch" aria-label="Every forwarder's slide one">
-      <div className="slide-bg slide-bg--flat" aria-hidden="true" />
+      <div className="slide-bg slide-bg--flat" aria-hidden="true">
+        <TechGrid intensity={0.42} accent="cobalt" hud={false} />
+      </div>
       <div className="slide__inner">
         <header className="slide-head">
           <p className="kicker">{genericPitch.kicker}</p>

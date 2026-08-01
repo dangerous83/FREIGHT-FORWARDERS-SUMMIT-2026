@@ -1287,3 +1287,78 @@
     display: none;
   }
 }
+
+/* ============================================================
+   TechGrid — high-tech cyber overlay (ILS blue)
+   ============================================================ */
+.tech-grid {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  overflow: hidden;
+}
+.tech-grid svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+@keyframes tgScanMove {
+  0% { transform: translateY(-160px); }
+  100% { transform: translateY(720px); }
+}
+.tg-scan {
+  animation: tgScanMove 7s linear infinite;
+  transform-origin: center;
+}
+/* HUD */
+.tg-hud {
+  position: absolute;
+  inset: clamp(0.6rem, 2cqw, 1.4rem);
+  --hud: var(--ils-cobalt-bright);
+}
+.tg-hud--gold { --hud: var(--gold); }
+.tg-hud--orange { --hud: var(--orange); }
+.tg-hud__corner {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border: 1.5px solid var(--hud);
+  opacity: 0.55;
+}
+.tg-hud__corner--tl { top: 0; left: 0; border-right: none; border-bottom: none; }
+.tg-hud__corner--tr { top: 0; right: 0; border-left: none; border-bottom: none; }
+.tg-hud__corner--bl { bottom: 0; left: 0; border-right: none; border-top: none; }
+.tg-hud__corner--br { bottom: 0; right: 0; border-left: none; border-top: none; }
+.tg-hud__label,
+.tg-hud__coord {
+  position: absolute;
+  font-family: var(--font-body);
+  font-size: clamp(0.52rem, 0.9cqw, 0.68rem);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--hud);
+  opacity: 0.62;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+}
+.tg-hud__label { top: -0.2rem; left: 2rem; }
+.tg-hud__coord { bottom: -0.2rem; right: 2rem; opacity: 0.4; }
+.tg-hud__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--hud);
+  box-shadow: 0 0 8px var(--hud);
+}
+@keyframes tgPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(0.7); }
+}
+.tg-hud__dot--live { animation: tgPulse 1.8s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .tg-scan, .tg-hud__dot--live { animation: none !important; }
+}
