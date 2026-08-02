@@ -48,7 +48,7 @@ export const locations: CorridorLocation[] = [
       'Departure planning for onward corridors',
     ],
     challenges: ['Multi-modal handoffs', 'Strict EU export controls'],
-    image: '/assets/images/hamburg-port.svg',
+    image: '/assets/images/hamburg.jpg',
   },
   {
     id: 'dubai',
@@ -67,7 +67,7 @@ export const locations: CorridorLocation[] = [
       'Customs, permits and carrier relationships',
     ],
     challenges: ['Complex re-export rules', 'Multi-border coordination'],
-    image: '/assets/images/dubai-operations.svg',
+    image: '/assets/images/dubai.jpg',
   },
   {
     id: 'central-asia',
@@ -86,7 +86,7 @@ export const locations: CorridorLocation[] = [
       'Regional agent and driver network',
     ],
     challenges: ['Landlocked destinations', 'Difficult terrain', 'Multi-border coordination'],
-    image: '/assets/images/central-asia-corridor.svg',
+    image: '/assets/images/central-asia.jpg',
   },
   {
     id: 'kabul',
@@ -105,7 +105,7 @@ export const locations: CorridorLocation[] = [
       'Last-mile into landlocked terrain',
     ],
     challenges: ['Conflict-sensitive corridor', 'Remote & landlocked', 'Complex customs'],
-    image: '/assets/images/kabul-corridor.svg',
+    image: '/assets/images/kabul.jpg',
   },
   {
     id: 'karachi',
@@ -124,7 +124,7 @@ export const locations: CorridorLocation[] = [
       'Heavy and project cargo handling',
     ],
     challenges: ['Congested port flows', 'Onward inland complexity'],
-    image: '/assets/images/karachi-port.svg',
+    image: '/assets/images/karachi.jpg',
   },
 ];
 
