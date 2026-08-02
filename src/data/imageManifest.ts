@@ -37,7 +37,7 @@ export const imageManifest: ManifestImage[] = [
   },
   {
     id: 'hamburg-port',
-    file: '/assets/images/hamburg.jpg',
+    file: '/assets/images/hamburg.png',
     slide: 'Slide 04/05 — Hamburg',
     aspectRatio: '3:2',
     alt: 'Realistic European container port at Hamburg with cranes and stacked containers under cold atmospheric light.',
@@ -47,7 +47,7 @@ export const imageManifest: ManifestImage[] = [
   },
   {
     id: 'dubai-operations',
-    file: '/assets/images/dubai.jpg',
+    file: '/assets/images/dubai.png',
     slide: 'Slide 04/05 — Dubai',
     aspectRatio: '3:2',
     alt: 'Modern Dubai logistics environment with the skyline used naturally in the background and a cargo yard in the foreground.',
@@ -57,7 +57,7 @@ export const imageManifest: ManifestImage[] = [
   },
   {
     id: 'central-asia-corridor',
-    file: '/assets/images/central-asia.jpg',
+    file: '/assets/images/central-asia.png',
     slide: 'Slide 04/05 — Central Asia',
     aspectRatio: '3:2',
     alt: 'Long-distance cargo trucks moving through rugged Central Asian terrain on a remote regional road.',
@@ -67,7 +67,7 @@ export const imageManifest: ManifestImage[] = [
   },
   {
     id: 'kabul-corridor',
-    file: '/assets/images/kabul.jpg',
+    file: '/assets/images/kabul.png',
     slide: 'Slide 04/05/07 — Kabul',
     aspectRatio: '3:2',
     alt: 'Professional cargo convoy on a mountain approach toward Kabul, documentary in tone and respectful — no weapons or conflict drama.',
@@ -77,7 +77,7 @@ export const imageManifest: ManifestImage[] = [
   },
   {
     id: 'karachi-port',
-    file: '/assets/images/karachi.jpg',
+    file: '/assets/images/karachi.png',
     slide: 'Slide 04/05 — Karachi',
     aspectRatio: '3:2',
     alt: 'Large South Asian port at Karachi with cargo cranes and an industrial working atmosphere.',
