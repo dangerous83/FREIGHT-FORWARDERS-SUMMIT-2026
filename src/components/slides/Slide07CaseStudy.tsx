@@ -24,45 +24,35 @@ const AUTO_ADVANCE_MS = 4000;
 
 export function Slide07CaseStudy() {
   const [step, setStep] = useState(0);
-  const [paused, setPaused] = useState(false);
   const { stages, testimonial } = humanitarianCase;
   const stage = stages[step];
   const reduced = useReducedMotion();
-  const [ref, inView] = useInViewOnce<HTMLDivElement>({ threshold: 0.3 });
+  const [ref, inView] = useInViewOnce<HTMLDivElement>({ threshold: 0.25 });
 
-  // Auto-reveal each stage every 4s. Stops at the last stage (The Result).
+  // Auto-reveal Challenge → Route → Complexity → ILS Response → Result,
+  // then loop back to Challenge. Runs continuously while the slide is in
+  // view. Never pauses on hover — presenters want the reel to keep going.
   useEffect(() => {
-    if (!inView || paused || reduced) return;
-    if (step >= stages.length - 1) return;
-    const t = setTimeout(() => setStep((s) => s + 1), AUTO_ADVANCE_MS);
+    if (!inView || reduced) return;
+    const t = setTimeout(() => {
+      setStep((s) => (s + 1) % stages.length);
+    }, AUTO_ADVANCE_MS);
     return () => clearTimeout(t);
-  }, [inView, paused, reduced, step, stages.length]);
+  }, [inView, reduced, step, stages.length]);
 
   const image = STAGE_IMAGES[stage.id];
 
   return (
     <section className="slide slide--case" aria-label="Humanitarian corridor case study">
       <div className="slide-bg slide-bg--flat" aria-hidden="true" />
-      <div
-        className="slide__inner case-layout"
-        ref={ref}
-        onMouseEnter={() => setPaused(true)}
-        onMouseLeave={() => setPaused(false)}
-      >
+      <div className="slide__inner case-layout" ref={ref}>
         <div className="case-main">
           <header className="slide-head">
             <p className="kicker kicker--gold">{humanitarianCase.kicker}</p>
             <h2 className="slide-title slide-title--sm">{humanitarianCase.title}</h2>
           </header>
 
-          <CaseStudyTimeline
-            stages={stages}
-            activeIndex={step}
-            onSelect={(i) => {
-              setStep(i);
-              setPaused(true);
-            }}
-          />
+          <CaseStudyTimeline stages={stages} activeIndex={step} onSelect={setStep} />
 
           <AnimatePresence mode="wait">
             <motion.div
