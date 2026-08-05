@@ -690,6 +690,37 @@
 .case-media .image-reveal {
   height: 100%;
 }
+.case-media--reveal {
+  position: relative;
+  background: #06111f;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 25px 60px -25px rgba(0, 0, 0, 0.7);
+}
+.case-media__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.case-media__badge {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold);
+  background: rgba(7, 18, 36, 0.78);
+  border: 1px solid rgba(232, 183, 46, 0.4);
+  border-radius: 999px;
+  padding: 0.3rem 0.7rem;
+  backdrop-filter: blur(6px);
+  z-index: 2;
+}
 
 /* Timeline */
 .case-timeline {
