@@ -38,6 +38,15 @@ export function Slide08HeavyLift() {
     return () => clearTimeout(t);
   }, [inView, reduced, active, steps.length]);
 
+  // Preload every heavy-lift image on mount so the reel doesn't stall
+  // waiting on the CDN when the timer flips to the next stage.
+  useEffect(() => {
+    Object.values(STEP_IMAGES).forEach((src) => {
+      const img = new Image();
+      img.src = src;
+    });
+  }, []);
+
   const currentStep = steps[active];
   const image = STEP_IMAGES[currentStep.id];
 
