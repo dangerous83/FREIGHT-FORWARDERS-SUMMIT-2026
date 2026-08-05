@@ -2,15 +2,15 @@ import { useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { locations, type LocationId } from '@/data/locations';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
+// Import as a Vite asset so the URL is rewritten to match the deploy base
+// (vite.config uses base: './', so absolute URLs break on subpath deploys).
+import MAP_VIDEO from '@/assets/slide-4-map.mp4';
 
 interface Props {
   activeId: LocationId | null;
   onSelect: (id: LocationId) => void;
   animate: boolean;
 }
-
-// User-uploaded corridor basemap MP4 ("slide 4 Map"). Served from /public.
-const MAP_VIDEO = '/assets/video/slide-4-map.mp4';
 
 // Geographic bounding box the image was generated to cover. The image is
 // stretched to fill 16:9, so we project lat/lon into normalized 0..1 space
