@@ -1,22 +1,51 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Check, ChevronRight } from 'lucide-react';
 import { heavyLiftContent } from '@/data/slides';
-import { ImageReveal } from '@/components/common/ImageReveal';
-import { asset } from '@/utils/asset';
+import { useInViewOnce } from '@/hooks/useInViewOnce';
+import { useReducedMotion } from '@/hooks/useReducedMotion';
+
+// Generated via Higgsfield (nano_banana) at 4:3 — one editorial photo per
+// heavy-lift step. CloudFront-hosted, cache-immutable for a year.
+const STEP_IMAGES: Record<string, string> = {
+  survey:
+    'https://d8j0ntlcm91z4.cloudfront.net/user_34SGn9O1DyKx5raXvDSnlxgbueE/hf_20260805_175842_5a8e0c1e-2968-43c6-a217-0ee68b2f1755.png',
+  engineering:
+    'https://d8j0ntlcm91z4.cloudfront.net/user_34SGn9O1DyKx5raXvDSnlxgbueE/hf_20260805_175842_eeca0599-c842-408b-982d-d8099696bee0.png',
+  permits:
+    'https://d8j0ntlcm91z4.cloudfront.net/user_34SGn9O1DyKx5raXvDSnlxgbueE/hf_20260805_175842_1eba8a74-f911-49ce-84ca-b852023943e6.png',
+  escorts:
+    'https://d8j0ntlcm91z4.cloudfront.net/user_34SGn9O1DyKx5raXvDSnlxgbueE/hf_20260805_175842_8f569e11-064f-4f3a-94e6-e4d6adbd6226.png',
+  lifting:
+    'https://d8j0ntlcm91z4.cloudfront.net/user_34SGn9O1DyKx5raXvDSnlxgbueE/hf_20260805_175842_136313d4-ea37-4469-a8b4-a06bb2481f9a.png',
+  delivery:
+    'https://d8j0ntlcm91z4.cloudfront.net/user_34SGn9O1DyKx5raXvDSnlxgbueE/hf_20260805_175842_c4d8e9bc-4c88-4599-bfa6-3071e521263c.png',
+};
+
+const AUTO_ADVANCE_MS = 4000;
 
 export function Slide08HeavyLift() {
   const [active, setActive] = useState(0);
   const { steps } = heavyLiftContent;
+  const reduced = useReducedMotion();
+  const [ref, inView] = useInViewOnce<HTMLDivElement>({ threshold: 0.25 });
+
+  // Auto-cycle each step every 4s while the slide is in view; loops back
+  // to the first step so the reel never freezes.
+  useEffect(() => {
+    if (!inView || reduced) return;
+    const t = setTimeout(() => setActive((s) => (s + 1) % steps.length), AUTO_ADVANCE_MS);
+    return () => clearTimeout(t);
+  }, [inView, reduced, active, steps.length]);
+
+  const currentStep = steps[active];
+  const image = STEP_IMAGES[currentStep.id];
 
   return (
     <section className="slide slide--heavy" aria-label="Heavy-lift capability">
-      <div className="slide-bg" aria-hidden="true">
-        <img className="slide-bg__img slide-bg__img--dim" src={asset('/assets/images/heavy-lift.svg')} alt="" />
-        <div className="slide-bg__scrim slide-bg__scrim--left" />
-      </div>
+      <div className="slide-bg slide-bg--flat" aria-hidden="true" />
 
-      <div className="slide__inner heavy-layout">
+      <div className="slide__inner heavy-layout" ref={ref}>
         <header className="slide-head">
           <p className="kicker kicker--orange">{heavyLiftContent.kicker}</p>
           <h2 className="slide-title slide-title--sm">{heavyLiftContent.headline}</h2>
@@ -61,11 +90,21 @@ export function Slide08HeavyLift() {
       </div>
 
       <div className="heavy-media no-print">
-        <ImageReveal
-          src="/assets/images/heavy-lift.svg"
-          alt="Oversized refinery module on a multi-axle platform trailer with engineering escorts"
-          rounded
-        />
+        <div className="heavy-media__frame">
+          <AnimatePresence mode="wait">
+            <motion.img
+              key={currentStep.id}
+              src={image}
+              alt={`${currentStep.step} — heavy-lift stage ${active + 1}`}
+              className="heavy-media__img"
+              initial={reduced ? { opacity: 0 } : { opacity: 0, scale: 1.06 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: reduced ? 0.3 : 0.9, ease: [0.22, 1, 0.36, 1] }}
+            />
+          </AnimatePresence>
+          <span className="heavy-media__badge">{currentStep.step}</span>
+        </div>
       </div>
     </section>
   );
