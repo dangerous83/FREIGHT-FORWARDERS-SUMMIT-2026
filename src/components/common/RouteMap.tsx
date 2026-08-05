@@ -9,10 +9,8 @@ interface Props {
   animate: boolean;
 }
 
-// Real corridor-focused basemap generated via Higgsfield (nano_banana / Gemini
-// image). CloudFront-hosted, cache-immutable for 1 year.
-const MAP_IMAGE =
-  'https://d8j0ntlcm91z4.cloudfront.net/user_34SGn9O1DyKx5raXvDSnlxgbueE/hf_20260805_075214_61c2677a-9b31-4e1a-b678-46e3b0d2b95e.png';
+// User-uploaded corridor basemap MP4 ("slide 4 Map"). Served from /public.
+const MAP_VIDEO = '/assets/video/slide-4-map.mp4';
 
 // Geographic bounding box the image was generated to cover. The image is
 // stretched to fill 16:9, so we project lat/lon into normalized 0..1 space
@@ -50,7 +48,18 @@ export function RouteMap({ activeId, onSelect, animate }: Props) {
 
   return (
     <div className="route-map">
+      <video
+        className="route-map__video"
+        src={MAP_VIDEO}
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+        aria-hidden="true"
+      />
       <svg
+        className="route-map__overlay"
         viewBox={`0 0 ${W} ${H}`}
         role="img"
         aria-label="ILS corridor plotted on a real satellite basemap: Hamburg, Dubai, Central Asia, Kabul, Karachi"
@@ -75,14 +84,6 @@ export function RouteMap({ activeId, onSelect, animate }: Props) {
           </filter>
         </defs>
 
-        <image
-          href={MAP_IMAGE}
-          x={0}
-          y={0}
-          width={W}
-          height={H}
-          preserveAspectRatio="xMidYMid slice"
-        />
         <rect width={W} height={H} fill="url(#mapVignette)" />
 
         {/* Static corridor line — no draw animation */}
