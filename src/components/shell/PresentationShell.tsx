@@ -1,7 +1,8 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import { LayoutGrid, HelpCircle, Play, Pause, Home } from 'lucide-react';
+import { LayoutGrid, HelpCircle, Play, Pause, Home, Sun, Moon } from 'lucide-react';
 import { usePresentation } from '@/context/PresentationContext';
 import { useNavigationInput } from '@/hooks/useNavigationInput';
+import { useTheme } from '@/hooks/useTheme';
 import { slides } from '@/data/slides';
 import { slideComponents } from '@/components/slides';
 import { SlideNavigation, NavZones } from './SlideNavigation';
@@ -32,6 +33,7 @@ export function PresentationShell() {
     toggleAutoplay,
     returnToStart,
   } = usePresentation();
+  const { theme, toggle: toggleTheme } = useTheme();
 
   useNavigationInput();
 
@@ -104,6 +106,15 @@ export function PresentationShell() {
                   <LayoutGrid size={17} />
                 </button>
                 <FullscreenControl />
+                <button
+                  className="tool-btn"
+                  onClick={toggleTheme}
+                  aria-pressed={theme === 'light'}
+                  aria-label={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
+                  title={theme === 'dark' ? 'Light theme' : 'Dark theme'}
+                >
+                  {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
+                </button>
                 <button
                   className="tool-btn"
                   onClick={() => toggleHelp()}

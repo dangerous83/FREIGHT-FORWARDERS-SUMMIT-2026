@@ -156,6 +156,125 @@
 .opening-logo-mark img {
   height: clamp(28px, 4cqw, 54px);
 }
+.opening-logo-mark__light { display: none; }
+:root[data-theme='light'] .opening-logo-mark__dark { display: none; }
+:root[data-theme='light'] .opening-logo-mark__light { display: block; }
+
+/* Kicker with pulsing dot */
+.opening-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+.opening-kicker__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--orange);
+  box-shadow: 0 0 0 0 rgba(233, 99, 50, 0.6);
+  animation: opening-pulse 2.4s ease-out infinite;
+}
+@keyframes opening-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(233, 99, 50, 0.55); }
+  70% { box-shadow: 0 0 0 12px rgba(233, 99, 50, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(233, 99, 50, 0); }
+}
+
+/* Live-badge chips beneath the support lines */
+.opening-meta {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  margin-top: clamp(0.4rem, 1cqh, 0.9rem);
+}
+.opening-meta__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--font-display);
+  font-size: clamp(0.68rem, 0.9cqw, 0.9rem);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  background: rgba(7, 18, 36, 0.55);
+  border: 1px solid rgba(58, 123, 213, 0.35);
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  backdrop-filter: blur(8px);
+}
+.opening-meta__chip--muted {
+  color: var(--text-secondary);
+  background: rgba(7, 18, 36, 0.35);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+:root[data-theme='light'] .opening-meta__chip {
+  background: rgba(255, 255, 255, 0.85);
+  color: var(--navy-deep);
+  border-color: rgba(37, 90, 173, 0.3);
+}
+:root[data-theme='light'] .opening-meta__chip--muted {
+  background: rgba(255, 255, 255, 0.6);
+  color: var(--navy-mid);
+}
+.opening-meta__pulse {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: #4bd97d;
+  box-shadow: 0 0 12px rgba(75, 217, 125, 0.9);
+  animation: opening-pulse-green 1.8s ease-out infinite;
+}
+@keyframes opening-pulse-green {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.25); opacity: 0.5; }
+}
+
+/* Illuminated route strokes drawing along the arcs */
+.opening-routes { color: var(--ils-cobalt-bright); }
+.opening-route-stream {
+  stroke-dashoffset: 0;
+  animation: opening-route-draw 7s linear infinite;
+}
+@keyframes opening-route-draw {
+  from { stroke-dashoffset: 0; }
+  to { stroke-dashoffset: -800; }
+}
+
+/* Floating logistics icons drifting across the cover */
+.opening-floaters {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.opening-floater {
+  position: absolute;
+  color: var(--ils-cobalt-bright);
+  filter: drop-shadow(0 6px 18px rgba(58, 123, 213, 0.35));
+}
+:root[data-theme='light'] .opening-floater {
+  color: var(--ils-cobalt);
+  opacity: 0.6;
+}
+
+/* Light-theme cover surface — swap the deep navy hero for a clean editorial look */
+:root[data-theme='light'] .slide--opening .slide-bg__img {
+  filter: brightness(1.05) saturate(0.9);
+  opacity: 0.35;
+}
+:root[data-theme='light'] .slide--opening .slide-bg__scrim--opening {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.6), rgba(238, 242, 247, 0.95)),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0) 55%);
+}
+:root[data-theme='light'] .opening-headline {
+  color: var(--navy-deep);
+  text-shadow: none;
+}
+:root[data-theme='light'] .opening-support span:first-child {
+  color: var(--navy-deep);
+}
 
 /* ============================================================
    Slide 02 — Generic pitch
