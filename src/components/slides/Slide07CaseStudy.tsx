@@ -40,6 +40,14 @@ export function Slide07CaseStudy() {
     return () => clearTimeout(t);
   }, [inView, reduced, step, stages.length]);
 
+  // Preload every stage image up-front so cycling never waits on the network.
+  useEffect(() => {
+    Object.values(STAGE_IMAGES).forEach((src) => {
+      const img = new Image();
+      img.src = src;
+    });
+  }, []);
+
   const image = STAGE_IMAGES[stage.id];
 
   return (
