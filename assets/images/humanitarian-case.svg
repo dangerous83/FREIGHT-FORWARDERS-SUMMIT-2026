@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0a1b30"/>
+      <stop offset="0.42" stop-color="#102842"/>
+      <stop offset="0.7" stop-color="#3a5674"/>
+      <stop offset="1" stop-color="#050e1b"/>
+    </linearGradient>
+    <radialGradient id="sun" cx="66%" cy="34%" r="55%">
+      <stop offset="0" stop-color="#e8b72e" stop-opacity="0.32"/>
+      <stop offset="0.35" stop-color="#e8b72e" stop-opacity="0.14"/>
+      <stop offset="1" stop-color="#e8b72e" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="vig" cx="50%" cy="46%" r="75%">
+      <stop offset="0.55" stop-color="#000" stop-opacity="0"/>
+      <stop offset="1" stop-color="#000" stop-opacity="0.66"/>
+    </radialGradient>
+    <linearGradient id="cobaltShade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#255aad" stop-opacity="0.0"/>
+      <stop offset="1" stop-color="#255aad" stop-opacity="0.22"/>
+    </linearGradient>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="77" stitchTiles="stitch" result="n"/>
+      <feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.7 0"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.05"/></feComponentTransfer>
+      <feComposite operator="over" in2="SourceGraphic"/>
+    </filter>
+    <filter id="soft"><feGaussianBlur stdDeviation="3"/></filter>
+    <filter id="haze"><feGaussianBlur stdDeviation="14"/></filter>
+  </defs>
+    <rect width="1600" height="900" fill="url(#sky)"/><rect width="1600" height="900" fill="url(#sun)"/>
+    <path d="M0 900 L0 414 L0 432 L229 369 L457 404 L686 434 L914 415 L1143 367 L1371 421 L1600 432 L1600 900 Z" fill="#0b2038" opacity="0.82" filter="url(#soft)"/>
+    <path d="M0 900 L0 576 L0 554 L229 579 L457 594 L686 549 L914 562 L1143 588 L1371 584 L1600 543 L1600 900 Z" fill="#091a30" opacity="0.93"/>
+    <path d="M96 792 Q 800 612 1504 450" stroke="#e8b72e" stroke-width="1.4" stroke-dasharray="3 9" fill="none" opacity="0.6"/>
+    <g><rect x="544" y="666" width="60" height="26" fill="#0e3157"/><rect x="720" y="648" width="60" height="26" fill="#123a66"/></g>
+    <rect width="1600" height="900" fill="url(#vig)"/><rect width="1600" height="900" filter="url(#grain)" opacity="0.5"/>
+  <text x="1584" y="887" text-anchor="end" font-family="Inter,system-ui,sans-serif" font-size="11" fill="#ffffff" opacity="0.22" letter-spacing="1.5">PLACEHOLDER · REPLACE WITH HIGGSFIELD 1K</text>
+</svg>
