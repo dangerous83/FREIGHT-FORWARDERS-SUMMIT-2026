@@ -6,6 +6,11 @@ import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { AnimatedHeadline } from '@/components/common/AnimatedHeadline';
 import { asset } from '@/utils/asset';
 
+// Cinematic logistics hero: container truck + cargo vessel + freight plane.
+// Generated via Higgsfield (nano_banana). CloudFront-hosted, cache-immutable.
+const HERO_IMAGE =
+  'https://d8j0ntlcm91z4.cloudfront.net/user_34SGn9O1DyKx5raXvDSnlxgbueE/hf_20260805_212542_b6886249-daf8-4e41-9776-06fc40fa370b.png';
+
 // Floating logistics icons drifting across the cover — subtle motion.
 const FLOATERS = [
   { Icon: Ship, x: '8%', y: '18%', size: 20, delay: 0, drift: 22 },
@@ -23,7 +28,14 @@ export function Slide01Opening() {
   return (
     <section className="slide slide--opening" aria-label="Opening: We don't do easy">
       <div className="slide-bg" aria-hidden="true">
-        <img className="slide-bg__img" src={asset('/assets/images/hero-convoy.svg')} alt="" />
+        <motion.img
+          className="slide-bg__img opening-hero"
+          src={HERO_IMAGE}
+          alt=""
+          initial={reduced ? undefined : { scale: 1.1 }}
+          animate={{ scale: 1.0 }}
+          transition={{ duration: 14, ease: 'easeOut' }}
+        />
         <div className="slide-bg__scrim slide-bg__scrim--opening" />
 
         {/* Animated global route lines + moving cargo pulses */}
