@@ -73,12 +73,12 @@ export const humanitarianCase: CaseStudy = {
       id: 'result',
       key: 'The Result',
       title: 'Cargo that arrives where it was needed',
-      body: 'Relief cargo delivered into a destination most competitors only view from a distance — repeatedly, over three years. (Specific volumes and figures are intentionally not published without client verification.)',
+      body: 'Relief cargo delivered into a destination most competitors only view from a distance — repeatedly, over 15+ years. (Specific volumes and figures are intentionally not published without client verification.)',
     },
   ],
   testimonial: {
     quote:
-      'We needed a partner who could handle Afghanistan and Central Asia without flinching. ILS has been moving our humanitarian shipments for three years — every container, every milestone.',
+      'We needed a partner who could handle Afghanistan and Central Asia without flinching. ILS has been moving our humanitarian shipments for 15+ years — every container, every milestone.',
     attributionName: 'Sarah Aldridge',
     attributionRole: 'Logistics Lead',
     attributionOrg: 'Crescent Aid Foundation',
