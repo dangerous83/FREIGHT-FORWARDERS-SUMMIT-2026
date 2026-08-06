@@ -6,10 +6,9 @@ import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { AnimatedHeadline } from '@/components/common/AnimatedHeadline';
 import { asset } from '@/utils/asset';
 
-// Cinematic logistics hero: container truck + cargo vessel + freight plane.
-// Generated via Higgsfield (nano_banana). CloudFront-hosted, cache-immutable.
-const HERO_IMAGE =
-  'https://d8j0ntlcm91z4.cloudfront.net/user_34SGn9O1DyKx5raXvDSnlxgbueE/hf_20260805_212542_b6886249-daf8-4e41-9776-06fc40fa370b.png';
+// Hero visual — served from /public so the cover always renders, even when
+// external CDNs are blocked or a signed URL has expired.
+const HERO_IMAGE = asset('/assets/images/hero-convoy.svg');
 
 // Floating logistics icons drifting across the cover — subtle motion.
 const FLOATERS = [
