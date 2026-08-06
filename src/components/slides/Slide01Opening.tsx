@@ -6,9 +6,9 @@ import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { AnimatedHeadline } from '@/components/common/AnimatedHeadline';
 import { asset } from '@/utils/asset';
 
-// Hero visual — served from /public so the cover always renders, even when
-// external CDNs are blocked or a signed URL has expired.
-const HERO_IMAGE = asset('/assets/images/hero-convoy.svg');
+const HERO_IMAGE =
+  'https://d8j0ntlcm91z4.cloudfront.net/user_34SGn9O1DyKx5raXvDSnlxgbueE/hf_20260806_044338_bef97e44-7666-4e76-86f6-c00000b4c31c.png';
+const HERO_FALLBACK = asset('/assets/images/hero-convoy.svg');
 
 // Floating logistics icons drifting across the cover — subtle motion.
 const FLOATERS = [
@@ -31,6 +31,10 @@ export function Slide01Opening() {
           className="slide-bg__img opening-hero"
           src={HERO_IMAGE}
           alt=""
+          onError={(e) => {
+            const img = e.currentTarget;
+            if (img.src !== HERO_FALLBACK) img.src = HERO_FALLBACK;
+          }}
           initial={reduced ? undefined : { scale: 1.1 }}
           animate={{ scale: 1.0 }}
           transition={{ duration: 14, ease: 'easeOut' }}
