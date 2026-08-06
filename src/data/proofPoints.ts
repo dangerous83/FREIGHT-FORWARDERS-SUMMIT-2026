@@ -39,12 +39,12 @@ export const proofPoints: ProofPoint[] = [
   },
   {
     id: 'humanitarian',
-    value: 3,
-    suffix: ' yrs',
+    value: 15,
+    suffix: '+ yrs',
     label: 'Humanitarian cargo into Kabul',
     description: 'Every container, every milestone.',
     detail:
-      'Three continuous years moving humanitarian shipments into Kabul — a landlocked, conflict-sensitive destination that most forwarders will not touch.',
+      'Over fifteen continuous years moving humanitarian shipments into Kabul — a landlocked, conflict-sensitive destination that most forwarders will not touch.',
     accent: 'gold',
   },
   {
