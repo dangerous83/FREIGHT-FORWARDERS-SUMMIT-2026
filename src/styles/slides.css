@@ -29,8 +29,8 @@
 }
 .slide-bg__scrim--opening {
   background:
-    linear-gradient(90deg, rgba(5, 15, 28, 0.94) 0%, rgba(5, 15, 28, 0.72) 42%, rgba(5, 15, 28, 0.25) 100%),
-    linear-gradient(0deg, rgba(5, 15, 28, 0.85) 0%, transparent 55%);
+    radial-gradient(80% 70% at 22% 55%, rgba(5, 15, 28, 0.82) 0%, rgba(5, 15, 28, 0.55) 35%, rgba(5, 15, 28, 0.10) 70%, transparent 100%),
+    linear-gradient(180deg, rgba(5, 15, 28, 0.45) 0%, transparent 30%, transparent 70%, rgba(5, 15, 28, 0.55) 100%);
 }
 .slide-bg__scrim--left {
   background: linear-gradient(90deg, rgba(6, 20, 38, 0.96) 30%, rgba(6, 20, 38, 0.55) 70%, transparent 100%);
@@ -163,11 +163,11 @@
 /* Cinematic logistics hero photo — slow Ken Burns push */
 .opening-hero {
   object-fit: cover;
-  object-position: center 55%;
-  filter: brightness(0.72) contrast(1.06) saturate(1.08);
+  object-position: 70% 55%;
+  filter: brightness(0.95) contrast(1.08) saturate(1.1);
 }
 :root[data-theme='light'] .opening-hero {
-  filter: brightness(0.92) contrast(1.04) saturate(1.02);
+  filter: brightness(1.02) contrast(1.04) saturate(1.02);
 }
 
 /* Kicker with pulsing dot */
