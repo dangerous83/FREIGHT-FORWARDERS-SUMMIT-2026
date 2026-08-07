@@ -46,27 +46,7 @@ export function Slide07CaseStudy() {
             <h2 className="slide-title slide-title--sm">{humanitarianCase.title}</h2>
           </header>
 
-          <div className="case-nav">
-            <button
-              type="button"
-              className="case-nav__btn"
-              onClick={goPrev}
-              aria-label="Previous stage"
-            >
-              <ChevronLeft size={18} />
-            </button>
-            <div className="case-nav__timeline">
-              <CaseStudyTimeline stages={stages} activeIndex={step} onSelect={setStep} />
-            </div>
-            <button
-              type="button"
-              className="case-nav__btn"
-              onClick={goNext}
-              aria-label="Next stage"
-            >
-              <ChevronRight size={18} />
-            </button>
-          </div>
+          <CaseStudyTimeline stages={stages} activeIndex={step} onSelect={setStep} />
 
           <AnimatePresence mode="wait">
             <motion.div
@@ -82,6 +62,30 @@ export function Slide07CaseStudy() {
               <p className="case-stage-body__text">{stage.body}</p>
             </motion.div>
           </AnimatePresence>
+
+          <div className="case-nav case-nav--bottom">
+            <button
+              type="button"
+              className="case-nav__btn case-nav__btn--labeled"
+              onClick={goPrev}
+              aria-label="Previous stage"
+            >
+              <ChevronLeft size={18} />
+              <span>Previous</span>
+            </button>
+            <span className="case-nav__counter">
+              {step + 1} / {stages.length}
+            </span>
+            <button
+              type="button"
+              className="case-nav__btn case-nav__btn--labeled"
+              onClick={goNext}
+              aria-label="Next stage"
+            >
+              <span>Next</span>
+              <ChevronRight size={18} />
+            </button>
+          </div>
         </div>
 
         <aside className="case-aside">
