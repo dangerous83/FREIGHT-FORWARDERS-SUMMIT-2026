@@ -41,8 +41,7 @@ export const slides: SlideMeta[] = [
   { index: 7, hash: '/case-study', title: 'Humanitarian Corridor', section: 'The Proof', component: 'case-study', accent: 'gold' },
   { index: 8, hash: '/heavy-lift', title: 'Heavy-Lift Capability', section: 'The Proof', component: 'heavy-lift', accent: 'orange' },
   { index: 9, hash: '/rotterdam-kabul', title: 'Rotterdam vs. Kabul', section: 'The Statement', component: 'contrarian', accent: 'orange' },
-  { index: 10, hash: '/why-ils', title: 'Why ILS', section: 'The Close', component: 'why-ils', accent: 'cobalt' },
-  { index: 11, hash: '/contact', title: 'Let’s Move What Matters', section: 'The Close', component: 'contact', accent: 'gold' },
+  { index: 10, hash: '/contact', title: 'Let’s Move What Matters', section: 'The Close', component: 'contact', accent: 'gold' },
 ];
 
 export const SLIDE_COUNT = slides.length;
