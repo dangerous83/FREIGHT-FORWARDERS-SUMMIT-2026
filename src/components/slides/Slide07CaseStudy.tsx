@@ -19,6 +19,19 @@ const STAGE_IMAGES: Record<string, string> = {
   result: resultImg,
 };
 
+function highlightYears(text: string) {
+  const parts = text.split(/(15\+ years)/g);
+  return parts.map((part, i) =>
+    part === '15+ years' ? (
+      <span key={i} className="highlight-years">
+        {part}
+      </span>
+    ) : (
+      part
+    ),
+  );
+}
+
 export function Slide07CaseStudy() {
   const [step, setStep] = useState(0);
   const { stages, testimonial } = humanitarianCase;
@@ -59,7 +72,7 @@ export function Slide07CaseStudy() {
             >
               <span className="case-stage-body__key">{stage.key}</span>
               <h3 className="case-stage-body__title">{stage.title}</h3>
-              <p className="case-stage-body__text">{stage.body}</p>
+              <p className="case-stage-body__text">{highlightYears(stage.body)}</p>
             </motion.div>
           </AnimatePresence>
 
@@ -110,7 +123,7 @@ export function Slide07CaseStudy() {
               <ShieldAlert size={13} /> Unverified · placeholder — pending client approval
             </span>
             <Quote size={20} className="testimonial__mark" aria-hidden="true" />
-            <blockquote>{testimonial.quote}</blockquote>
+            <blockquote>{highlightYears(testimonial.quote)}</blockquote>
             <figcaption>
               <strong>{testimonial.attributionName}</strong>
               <span className="muted">

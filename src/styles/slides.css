@@ -1191,6 +1191,13 @@
 /* ============================================================
    Slide 09 — Contrarian
    ============================================================ */
+.slide--corridor .slide-bg--flat {
+  background: #000000;
+}
+.highlight-years {
+  color: #22c55e;
+  font-weight: 700;
+}
 .slide--contrarian .slide-bg--flat {
   background:
     radial-gradient(90% 90% at 80% 20%, rgba(233, 99, 50, 0.12), transparent 55%),
