@@ -21,7 +21,7 @@ export const proofPoints: ProofPoint[] = [
   {
     id: 'established',
     value: 2002,
-    label: 'Established in Dubai',
+    label: 'Established in Hamburg',
     description: 'Two decades of finding a way through.',
     detail:
       'ILS has operated from Dubai since 2002 — long enough to have built the relationships, permits and know-how that difficult corridors demand.',

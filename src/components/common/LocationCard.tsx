@@ -37,9 +37,12 @@ export function LocationCard({ location, order, onOpen }: Props) {
       <div className="location-card__body">
         <div className="location-card__head">
           <h3>{location.name}</h3>
-          <ArrowUpRight size={18} className="location-card__arrow" />
         </div>
         <p className="location-card__country">{location.country} · {location.role}</p>
+        <span className="location-card__cta">
+          More info
+          <ArrowUpRight size={16} className="location-card__arrow" />
+        </span>
       </div>
     </motion.button>
   );
