@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Check, ChevronRight } from 'lucide-react';
 import { heavyLiftContent } from '@/data/slides';
-import { useInViewOnce } from '@/hooks/useInViewOnce';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 
 // Generated via Higgsfield (nano_banana) at 4:3 — one editorial photo per
@@ -22,24 +21,11 @@ const STEP_IMAGES: Record<string, string> = {
     'https://d8j0ntlcm91z4.cloudfront.net/user_34SGn9O1DyKx5raXvDSnlxgbueE/hf_20260805_175842_c4d8e9bc-4c88-4599-bfa6-3071e521263c.png',
 };
 
-const AUTO_ADVANCE_MS = 4000;
-
 export function Slide08HeavyLift() {
   const [active, setActive] = useState(0);
   const { steps } = heavyLiftContent;
   const reduced = useReducedMotion();
-  const [ref, inView] = useInViewOnce<HTMLDivElement>({ threshold: 0.25 });
 
-  // Auto-cycle each step every 4s while the slide is in view; loops back
-  // to the first step so the reel never freezes.
-  useEffect(() => {
-    if (!inView || reduced) return;
-    const t = setTimeout(() => setActive((s) => (s + 1) % steps.length), AUTO_ADVANCE_MS);
-    return () => clearTimeout(t);
-  }, [inView, reduced, active, steps.length]);
-
-  // Preload every heavy-lift image on mount so the reel doesn't stall
-  // waiting on the CDN when the timer flips to the next stage.
   useEffect(() => {
     Object.values(STEP_IMAGES).forEach((src) => {
       const img = new Image();
@@ -54,7 +40,7 @@ export function Slide08HeavyLift() {
     <section className="slide slide--heavy" aria-label="Heavy-lift capability">
       <div className="slide-bg slide-bg--flat" aria-hidden="true" />
 
-      <div className="slide__inner heavy-layout" ref={ref}>
+      <div className="slide__inner heavy-layout">
         <header className="slide-head">
           <p className="kicker kicker--orange">{heavyLiftContent.kicker}</p>
           <h2 className="slide-title slide-title--sm">{heavyLiftContent.headline}</h2>
