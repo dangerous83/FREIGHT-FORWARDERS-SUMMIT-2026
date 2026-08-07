@@ -79,7 +79,7 @@ export const humanitarianCase: CaseStudy = {
   testimonial: {
     quote:
       'We needed a partner who could handle Afghanistan and Central Asia without flinching. ILS has been moving our humanitarian shipments for 15+ years — every container, every milestone.',
-    attributionName: 'Sarah Aldridge',
+    attributionName: 'Sarah Schneider',
     attributionRole: 'Logistics Lead',
     attributionOrg: 'Crescent Aid Foundation',
     verified: false,

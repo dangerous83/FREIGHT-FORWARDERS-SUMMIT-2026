@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Quote, ShieldAlert } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Quote, ShieldAlert } from 'lucide-react';
 import { humanitarianCase } from '@/data/caseStudies';
 import { CaseStudyTimeline } from '@/components/common/CaseStudyTimeline';
-import { useInViewOnce } from '@/hooks/useInViewOnce';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 
 import challengeImg from '@/assets/case/challenge.jpg';
@@ -20,27 +19,12 @@ const STAGE_IMAGES: Record<string, string> = {
   result: resultImg,
 };
 
-const AUTO_ADVANCE_MS = 4000;
-
 export function Slide07CaseStudy() {
   const [step, setStep] = useState(0);
   const { stages, testimonial } = humanitarianCase;
   const stage = stages[step];
   const reduced = useReducedMotion();
-  const [ref, inView] = useInViewOnce<HTMLDivElement>({ threshold: 0.25 });
 
-  // Auto-reveal Challenge → Route → Complexity → ILS Response → Result,
-  // then loop back to Challenge. Runs continuously while the slide is in
-  // view. Never pauses on hover — presenters want the reel to keep going.
-  useEffect(() => {
-    if (!inView || reduced) return;
-    const t = setTimeout(() => {
-      setStep((s) => (s + 1) % stages.length);
-    }, AUTO_ADVANCE_MS);
-    return () => clearTimeout(t);
-  }, [inView, reduced, step, stages.length]);
-
-  // Preload every stage image up-front so cycling never waits on the network.
   useEffect(() => {
     Object.values(STAGE_IMAGES).forEach((src) => {
       const img = new Image();
@@ -49,18 +33,40 @@ export function Slide07CaseStudy() {
   }, []);
 
   const image = STAGE_IMAGES[stage.id];
+  const goPrev = () => setStep((s) => (s - 1 + stages.length) % stages.length);
+  const goNext = () => setStep((s) => (s + 1) % stages.length);
 
   return (
     <section className="slide slide--case" aria-label="Humanitarian corridor case study">
       <div className="slide-bg slide-bg--flat" aria-hidden="true" />
-      <div className="slide__inner case-layout" ref={ref}>
+      <div className="slide__inner case-layout">
         <div className="case-main">
           <header className="slide-head">
             <p className="kicker kicker--gold">{humanitarianCase.kicker}</p>
             <h2 className="slide-title slide-title--sm">{humanitarianCase.title}</h2>
           </header>
 
-          <CaseStudyTimeline stages={stages} activeIndex={step} onSelect={setStep} />
+          <div className="case-nav">
+            <button
+              type="button"
+              className="case-nav__btn"
+              onClick={goPrev}
+              aria-label="Previous stage"
+            >
+              <ChevronLeft size={18} />
+            </button>
+            <div className="case-nav__timeline">
+              <CaseStudyTimeline stages={stages} activeIndex={step} onSelect={setStep} />
+            </div>
+            <button
+              type="button"
+              className="case-nav__btn"
+              onClick={goNext}
+              aria-label="Next stage"
+            >
+              <ChevronRight size={18} />
+            </button>
+          </div>
 
           <AnimatePresence mode="wait">
             <motion.div
