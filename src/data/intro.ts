@@ -28,7 +28,7 @@ export interface IntroConfig {
 export const introConfig: IntroConfig = {
   title: 'ENTER THE ILS NETWORK',
   supportingText: 'International Logistic Services · Dubai, since 2002',
-  summitLine: 'Freight Forwarders Summit · 2026',
+  summitLine: '',
   activationLabel: 'CLICK TO BEGIN',
   hoverLabel: 'INITIALIZE PRESENTATION',
   animationDuration: 2600,
