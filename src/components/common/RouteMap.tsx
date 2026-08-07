@@ -1,5 +1,5 @@
 import { locations, type LocationId } from '@/data/locations';
-import MAP_VIDEO from '@/assets/slide-4-map.mp4';
+import MAP_VIDEO from '@/assets/slide-4-map-rev2.mp4';
 
 interface Props {
   activeId: LocationId | null;
