@@ -14,6 +14,7 @@ const accentVar: Record<ProofPoint['accent'], string> = {
   cobalt: 'var(--ils-cobalt-bright)',
   gold: 'var(--gold)',
   orange: 'var(--orange)',
+  green: 'var(--green)',
 };
 
 export function MetricCard({ point, active, order }: Props) {

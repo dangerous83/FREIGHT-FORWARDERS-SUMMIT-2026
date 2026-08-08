@@ -14,7 +14,7 @@ export interface ProofPoint {
   description: string;
   /** Extra context revealed on click. */
   detail: string;
-  accent: 'cobalt' | 'gold' | 'orange';
+  accent: 'cobalt' | 'gold' | 'orange' | 'green';
 }
 
 export const proofPoints: ProofPoint[] = [
@@ -45,7 +45,7 @@ export const proofPoints: ProofPoint[] = [
     description: 'Every container, every milestone.',
     detail:
       'Over fifteen continuous years moving humanitarian shipments into Kabul — a landlocked, conflict-sensitive destination that most forwarders will not touch.',
-    accent: 'gold',
+    accent: 'green',
   },
   {
     id: 'heavy-lift',
