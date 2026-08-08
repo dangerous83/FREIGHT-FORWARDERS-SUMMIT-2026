@@ -72,7 +72,7 @@
 }
 
 .activation:focus-visible .activation__logo-wrap {
-  box-shadow: 0 0 0 3px var(--gold), 0 0 60px -6px rgba(37, 90, 173, 0.9);
+  box-shadow: 0 0 0 2px rgba(92, 155, 240, 0.55), 0 0 60px -6px rgba(37, 90, 173, 0.9);
 }
 
 .activation__logo-wrap {
@@ -83,7 +83,7 @@
   display: grid;
   place-items: center;
   border-radius: 50%;
-  background: radial-gradient(circle at 50% 40%, rgba(37, 90, 173, 0.35), rgba(7, 27, 51, 0.9));
+  background: transparent;
   border: 1px solid rgba(120, 170, 230, 0.35);
   transition: transform var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out);
 }
